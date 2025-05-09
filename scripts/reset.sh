@@ -4,12 +4,14 @@ echo "Ensure you are authenticated to the cluster before running this script"
 sleep 5
 
 echo "Gathering ArgoCD information..."
-ARGOCD_URL=$(oc get route openshift-gitops-server -n openshift-gitops -o go-template --template '{{ .spec.host }}')
+ARGOCD_URL=https://console-openshift-console.apps.cluster-6922x.dynamic.redhatworkshops.io
+#ARGOCD_URL=$(oc get route openshift-gitops-server -n openshift-gitops -o go-template --template '{{ .spec.host }}')
 ARGOCD_USERNAME=admin
-ARGOCD_PASSWORD=$(oc get secret openshift-gitops-cluster -n openshift-gitops -o go-template='{{ index .data "admin.password" | base64decode }}')
+ARGOCD_PASSWORD=nvJE4lH4Hlkv
+#ARGOCD_PASSWORD=$(oc get secret openshift-gitops-cluster -n openshift-gitops -o go-template='{{ index .data "admin.password" | base64decode }}')
 
 echo "Logging in to ArgoCD..."
-argocd login "$ARGOCD_URL" --username "$ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --grpc-web
+argocd login "$ARGOCD_URL" --username "$ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --grpc-web --skip-test-tls
 
 echo "Turning off auto-sync on parent app..."
 oc patch application.argoproj.io/student-services -n openshift-gitops --type=json -p '[{"op": "remove", "path": "/spec/syncPolicy/automated"}]'
