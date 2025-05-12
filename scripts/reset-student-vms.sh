@@ -12,7 +12,7 @@ echo "Logging in to ArgoCD..."
 argocd login "$ARGOCD_URL" --username "$ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --grpc-web --skip-test-tls
 
 echo "Turning off auto-sync on parent app..."
-oc patch application.argoproj.io/student-services -n openshift-gitops --type=json -p '[{"op": "remove", "path": "/spec/syncPolicy/automated"}]'
+oc patch application.argoproj.io/student-services -n openshift-gitops --type=json -p '[{"op": "remove", "path": "/spec/syncPolicy"}]'
 
 echo "Deleting student virtual machines..."
 #argocd app delete openshift-gitops/registry-auth --cascade --yes --grpc-web --wait
@@ -25,7 +25,7 @@ argocd app delete openshift-gitops/student-virtual-machines --cascade --yes --gr
 #oc delete DataVolume rhel9-bootc-edgemanager-base-1.0.0 rhel9-bootc-edgemanager-pos-prod-1.0.0 -n student-services
 
 #echo "Turning auto-sync back on..."
-oc patch application.argoproj.io/student-services -n openshift-gitops --type=json -p '[{"op": "add", "path": "/spec/syncPolicy/automated", "value": {}}]'
+oc patch application.argoproj.io/student-services -n openshift-gitops --type=json -p '[{"op": "replace", "path": "/spec/syncPolicy", "value": {"automated": {}}}]'
 
 #echo "Forcing immediate sync..."
 argocd app sync openshift-gitops/student-services
