@@ -9,7 +9,7 @@ ARGOCD_USERNAME=admin
 ARGOCD_PASSWORD=$(oc get secret openshift-gitops-cluster -n openshift-gitops -o go-template='{{ index .data "admin.password" | base64decode }}')
 
 echo "Logging in to ArgoCD..."
-argocd login "$ARGOCD_URL" --username "$ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --grpc-web
+argocd login "$ARGOCD_URL" --username "$ARGOCD_USERNAME" --password "$ARGOCD_PASSWORD" --grpc-web --skip-test-tls
 
 echo "Turning off auto-sync on parent app..."
 oc patch application.argoproj.io/student-services -n openshift-gitops --type=json -p '[{"op": "remove", "path": "/spec/syncPolicy/automated"}]'
