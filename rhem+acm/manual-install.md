@@ -11,4 +11,17 @@ oc patch multiclusterhubs.operator.open-cluster-management.io multiclusterhub -n
 ```
 3. Wait for the ConsolePlugin to refresh
 
-![alt text](./images/web-console-refresh.png)
+<img src="./images/web-console-refresh.png" alt="alt text" width="75%">
+
+4. Annotate the Multi Cluster Hub to pause so it does not attempt to reconcile RHEM (e.g. remove it)
+```
+oc annotate mce multiclusterengine pause=true --overwrite
+```
+
+```
+oc annotate -n open-cluster-management `oc get mch -oname -n open-cluster-management | head -n1` mch-pause=true --overwrite=true
+```
+
+<img src=./images/web-console-refresh.png" alt="alt text" width="75%">
+
+5. Confirm that MCH is in Phase: Paused
