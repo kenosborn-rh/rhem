@@ -25,7 +25,7 @@ oc annotate -n open-cluster-management `oc get mch -oname -n open-cluster-manage
 
 <img src="./images/mch-paused.png" alt="alt text" width="75%">
 
-## Install Desired [version](https://quay.io/repository/flightctl/flightctl-api) of RHEM
+## Install Desired <a href="https://quay.io/repository/flightctl/flightctl-api" target="_blank">version</a> of RHEM
 
 Note: storageClassName will need to be set to requisite value for installed to env; here, we use our common OCP on AWS storageClassName
 
