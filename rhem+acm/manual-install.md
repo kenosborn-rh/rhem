@@ -8,7 +8,7 @@ Procedure to remove an existing ACM Operator installation of RHEM then install d
 2. Remove the RHEM installation from the ACM Operator
 ```
 oc patch multiclusterhubs.operator.open-cluster-management.io multiclusterhub -n open-cluster-management --type json --patch '[{"op": "remove", "path":"/spec/overrides/components"}]'
-
+```
 3. Wait for the ConsolePlugin to refresh
 
 ![alt text](./images/web-console-refresh.png)
