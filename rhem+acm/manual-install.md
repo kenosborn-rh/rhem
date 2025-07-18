@@ -22,6 +22,6 @@ oc annotate mce multiclusterengine pause=true --overwrite
 oc annotate -n open-cluster-management `oc get mch -oname -n open-cluster-management | head -n1` mch-pause=true --overwrite=true
 ```
 
-<img src=./images/web-console-refresh.png" alt="alt text" width="75%">
+<img src="./images/web-console-refresh.png" alt="alt text" width="75%">
 
 5. Confirm that MCH is in Phase: Paused
