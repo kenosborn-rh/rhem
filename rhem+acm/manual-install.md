@@ -65,7 +65,7 @@ oc delete namespace flightctl
 
 
 
-Scratch (latest version)
+Scratch (latest - test, not released - version)
 ```
 helm upgrade --install --version=0.9.0-main-221-gbd706dd7 \
   --namespace flightctl --create-namespace flightctl oci://quay.io/flightctl/charts/flightctl \
