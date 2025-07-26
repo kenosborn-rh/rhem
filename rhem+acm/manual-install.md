@@ -80,3 +80,68 @@ db:
     size: "20Gi"
 EOF
 ```
+
+```
+#!/bin/bash
+
+MCH_NAME="multiclusterhub"
+MCH_NAMESPACE="open-cluster-management"
+COMPONENT_NAME="edge-manager-preview"
+
+# Step 1: Get the entire MCH resource to avoid multiple calls
+MCH_JSON=$(oc get multiclusterhub "$MCH_NAME" -n "$MCH_NAMESPACE" -o json)
+
+if [[ -z "$MCH_JSON" ]]; then
+  echo "❌ Failed to get MultiClusterHub resource '$MCH_NAME' in namespace '$MCH_NAMESPACE'. Exiting."
+  exit 1
+fi
+
+# Step 2: Find the component's index and its 'enabled' status in one go
+COMPONENT_DATA=$(echo "$MCH_JSON" | jq -r --arg name "$COMPONENT_NAME" '
+    .spec.overrides.components | to_entries 
+    | map(select(.value.name == $name)) 
+    | .[0] 
+    | "\(.key) \(.value.enabled // "null")"')
+
+# Read the found index and status into separate variables
+read -r INDEX CURRENT_ENABLED <<< "$COMPONENT_DATA"
+
+# Step 3: Evaluate and act
+if [[ "$CURRENT_ENABLED" == "false" ]]; then
+  echo "✅ '$COMPONENT_NAME' is already disabled. No action taken."
+
+elif [[ "$CURRENT_ENABLED" == "true" ]]; then
+  echo "⚙️ Disabling '$COMPONENT_NAME' at index $INDEX..."
+  # Use a precise JSON patch to replace the value at the correct index
+  oc patch multiclusterhub "$MCH_NAME" -n "$MCH_NAMESPACE" --type='json' \
+    -p="[{'op': 'replace', 'path': '/spec/overrides/components/$INDEX/enabled', 'value': false}]" \
+    && echo "✅ Patch applied successfully."
+
+elif [[ -z "$INDEX" || "$CURRENT_ENABLED" == "null" ]]; then
+  echo "⚠️ '$COMPONENT_NAME' was not found in the component override list. Nothing was changed."
+  
+else
+  echo "❌ Unexpected state for '$COMPONENT_NAME'. Index: '$INDEX', Enabled: '$CURRENT_ENABLED'"
+fi
+
+# to get state of enabled components
+oc get multiclusterhub multiclusterhub -n open-cluster-management -o json | jq '.spec.overrides.components[] | {name, enabled}'
+```
+
+oc patch multiclusterhubs.operator.open-cluster-management.io multiclusterhub \
+  -n open-cluster-management \
+  --type json \
+  --patch '[{"op": "add", "path":"/spec/overrides/components/-", "value": {"name":"edge-manager-preview","enabled": true}}]'
+
+
+flightctl login https://api.apps.cluster-bl2vp.dynamic.redhatworkshops.io --username admin --password 8kP4kLpLToS3 --insecure-skip-tls-verify
+
+Delete:
+wget -q http://content.example.com/rhde/oci/microshift-containers.tar.gz
+tar xzf microshift-containers.tar.gz
+ls microshift-containers/
+lvms4  openshift-release-dev
+wget -q http://content.example.com/rhde/oci/app-containers.tar.gz
+tar xzf app-containers.tar.gz
+ ls app-containers
+extra-images-list.txt  flozanorht  rhel9  ubi9
