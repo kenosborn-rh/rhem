@@ -1,0 +1,49 @@
+apiVersion: flightctl.io/v1alpha1
+kind: Fleet
+metadata:
+  annotations:
+    fleet-controller/templateVersion: "2025-07-27T13:15:47.97186498Z"
+  creationTimestamp: "2025-07-27T12:10:13.182409Z"
+  generation: 2
+  labels: {}
+  name: microshift-fleet-02
+  resourceVersion: "7"
+spec:
+  selector:
+    matchLabels:
+      env: microshift
+  template:
+    metadata:
+      labels:
+        fleet: microshift-fleet-02
+    spec:
+      applications: []
+      config:
+      - httpRef:
+          filePath: /var/local/acm-import/crd.yaml
+          repository: acm-registration
+          suffix: /agent-registration/crds/v1
+        name: acm-crd
+      - httpRef:
+          filePath: /var/local/acm-import/import.yaml
+          repository: acm-registration
+          suffix: /agent-registration/manifests/{{ .metadata.name }}
+        name: acm-registration
+      - inline:
+        - content: |
+            - if:
+              - path: /var/local/acm-import/crd.yaml
+                op: [created]
+              run: kubectl apply -f /var/local/acm-import/crd.yaml
+              envVars:
+                KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
+            - if:
+              - path: /var/local/acm-import/import.yaml
+                op: [created]
+              run: kubectl apply -f /var/local/acm-import/import.yaml
+              envVars:
+                KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
+          path: /etc/flightctl/hooks.d/afterupdating/50-acm-registration.yaml
+        name: apply-acm-manifests
+      os:
+        image: quay.io/kenosborn/microshift-4.18-rhem-0.5.1:v1
