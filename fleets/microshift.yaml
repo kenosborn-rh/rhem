@@ -6,7 +6,7 @@ metadata:
   creationTimestamp: "2025-07-27T12:10:13.182409Z"
   generation: 2
   labels: {}
-  name: microshift-fleet-02
+  name: microshift-demo-fleet-01
   resourceVersion: "7"
 spec:
   selector:
@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        fleet: microshift-fleet-02
+        fleet: microshift-demo-fleet-01
     spec:
       applications: []
       config:
@@ -46,4 +46,4 @@ spec:
           path: /etc/flightctl/hooks.d/afterupdating/50-acm-registration.yaml
         name: apply-acm-manifests
       os:
-        image: quay.io/kenosborn/microshift-4.18-rhem-0.5.1:v1
+        image: quay.io/kenosborn/microshift-4.18-rhem-0.5.1-demo:v1
