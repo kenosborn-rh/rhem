@@ -11,7 +11,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      env: demo-01
+      env: demo-02
   template:
     metadata:
       labels:
