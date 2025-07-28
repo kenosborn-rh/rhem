@@ -10,7 +10,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      env: demo-07
+      env: demo-01
   template:
     metadata:
       labels:
