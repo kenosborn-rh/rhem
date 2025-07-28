@@ -10,7 +10,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      env: microshift-demo
+      env: microshift
   template:
     metadata:
       labels:
