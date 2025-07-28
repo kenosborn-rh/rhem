@@ -7,7 +7,6 @@ metadata:
   generation: 2
   labels: {}
   name: microshift-demo-fleet-01
-  resourceVersion: "7"
 spec:
   selector:
     matchLabels:
