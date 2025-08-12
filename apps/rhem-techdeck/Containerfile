@@ -1,0 +1,5 @@
+FROM lissy93/dashy:latest
+COPY conf.yml /app/public/conf.yml
+ENV NODE_ENV=production
+CMD ["node", "server", "--config", "/app/public/conf.yml"]
+

@@ -1,0 +1,36 @@
+pageInfo:
+  title: "Edge Gateway Dashboard"
+  description: "Status and quick links for the edge device"
+
+appConfig:
+  theme: colorful
+  layout: auto
+  iconSize: medium
+
+sections:
+  - name: "System Info"
+    items:
+      - title: "Device Status"
+        description: "Edge device is online"
+        icon: mdi-server
+        url: "#"
+      - title: "CPU Usage"
+        description: "View CPU stats"
+        icon: mdi-cpu-64-bit
+        url: "#"
+      - title: "Logs"
+        description: "Access system logs"
+        icon: mdi-file-document-outline
+        url: "#"
+
+  - name: "Network"
+    items:
+      - title: "Router"
+        description: "Open router admin"
+        icon: mdi-router-network
+        url: "http://192.168.1.1"
+      - title: "Switch"
+        description: "Open switch admin"
+        icon: mdi-ethernet
+        url: "http://192.168.1.2"
+

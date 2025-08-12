@@ -1,0 +1,31 @@
+FROM registry.redhat.io/rhel9-eus/rhel-9.6-bootc:9.6
+# **Explicitly installer older version of agent
+RUN dnf --enablerepo ansible-automation-platform-2.5-for-rhel-9-x86_64-rpms -y install flightctl-agent-0.7.2-1.el9fc  && \
+    dnf -y clean all && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer
+
+#RUN dnf --enablerepo rhacm-2.13-for-rhel-9-x86_64-rpms -y install flightctl-agent && \
+#    dnf -y clean all && \
+#    systemctl enable flightctl-agent.service && \
+#    systemctl mask bootc-fetch-apply-updates.timer 
+
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm && \
+    dnf -y install podman-compose && \
+    dnf -y clean all && \
+    systemctl enable podman.service
+
+ADD config.yaml /etc/flightctl/
+
+
+# Mandatory firewall configuration
+#RUN firewall-offline-cmd --zone=public --add-port=22/tcp && \
+#    firewall-offline-cmd --zone=trusted --add-source=10.42.0.0/16 && \
+#    firewall-offline-cmd --zone=trusted --add-source=169.254.169.1 && \
+#    firewall-offline-cmd --zone=trusted --add-source=fd01::/48
+    # Application-specific firewall configuration
+#RUN firewall-offline-cmd --zone=public --add-port=80/tcp && \
+#    firewall-offline-cmd --zone=public --add-port=443/tcp && \
+#    firewall-offline-cmd --zone=public --add-port=30000-32767/tcp && \
+#    firewall-offline-cmd --zone=public --add-port=30000-32767/udp
+

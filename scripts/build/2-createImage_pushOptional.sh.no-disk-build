@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Usage: ./build-image.sh <REGISTRY_URL> <IMAGE_NAME> <IMAGE_TAG> [--push]
+# Author: Ken Osborn
+# Creation Date: 28-Jul-25
+
+set -e
+
+REGISTRY_URL=$1
+IMAGE_NAME=$2
+IMAGE_TAG=$3
+PUSH_FLAG=$4
+
+if [ -z "$REGISTRY_URL" ] || [ -z "$IMAGE_NAME" ] || [ -z "$IMAGE_TAG" ]; then
+  echo "Usage: $0 <REGISTRY_URL> <IMAGE_NAME> <IMAGE_TAG> [--push]"
+  exit 1
+fi
+
+# ✅ Check for config.yaml
+if [ ! -f "config.yaml" ]; then
+  echo "❌ config.yaml missing."
+  echo "Run: flightctl certificate request --signer=enrollment --expiration=365d --output=embedded > config.yaml"
+  exit 1
+fi
+
+# ✅ Check for Containerfile
+if [ ! -f "Containerfile" ]; then
+  echo "❌ Containerfile missing."
+  echo "Make sure your Containerfile is present in the current directory before running this script."
+  exit 1
+fi
+
+FULL_IMAGE="${REGISTRY_URL}/${IMAGE_NAME}:${IMAGE_TAG}"
+
+echo "Building image: ${FULL_IMAGE}"
+sudo podman build -t "${FULL_IMAGE}" -f Containerfile
+
+if [ "$PUSH_FLAG" == "--push" ]; then
+  echo "Extracting quay.io credentials from $HOME/.pull-secret.json"
+  REGISTRY_USER=$(jq -r '.auths["quay.io"].auth' "$HOME/.pull-secret.json" | base64 -d | cut -d: -f1)
+  REGISTRY_PASS=$(jq -r '.auths["quay.io"].auth' "$HOME/.pull-secret.json" | base64 -d | cut -d: -f2)
+
+  if [ -z "$REGISTRY_USER" ] || [ -z "$REGISTRY_PASS" ]; then
+    echo "❌ Failed to extract quay.io credentials from $HOME/.pull-secret.json"
+    exit 1
+  fi
+
+  echo "Logging into ${REGISTRY_URL} as ${REGISTRY_USER}"
+  echo "$REGISTRY_PASS" | sudo podman login --username "$REGISTRY_USER" --password-stdin "$REGISTRY_URL"
+
+  echo "Pushing image: ${FULL_IMAGE}"
+  sudo podman push "${FULL_IMAGE}"
+  echo "✅ Image pushed successfully!"
+else
+  echo "✅ Build complete. Skipping push."
+fi
+
