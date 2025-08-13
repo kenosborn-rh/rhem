@@ -27,8 +27,6 @@ useradd -g wheel redhat
 echo "redhat:redhat123" | chpasswd
 mkdir /home/redhat/.ssh
 
-# test
-
 # Ensure the directory exists regardless of image layer timing
 mkdir -p /etc/crio
 
