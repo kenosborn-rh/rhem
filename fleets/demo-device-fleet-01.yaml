@@ -16,7 +16,7 @@ spec:
       config:
       - gitRef:
           mountPath: /
-          path: /
+          path: /etc/etc/motd
           repository: demo-repository-01
           targetRevision: main
         name: motd-config
