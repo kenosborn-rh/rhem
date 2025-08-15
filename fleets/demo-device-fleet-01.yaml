@@ -15,8 +15,8 @@ spec:
       applications: []
       config:
       - gitRef:
-          mountPath: /etc/
-          path: /etc/
+          mountPath: /
+          path: /
           repository: demo-repository-01
           targetRevision: main
         name: motd-config
