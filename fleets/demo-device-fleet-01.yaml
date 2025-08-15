@@ -13,5 +13,12 @@ spec:
         fleet: demo-device-fleet-01
     spec:
       applications: []
+      config:
+      - gitRef:
+          mountPath: /etc/motd
+          path: /etc/motd
+          repository: demo-repository-01
+          targetRevision: main
+        name: motd
       os:
         image: quay.io/kenosborn/rhem0.7.2-edge-device-base:v1
