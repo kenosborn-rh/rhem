@@ -1,10 +1,6 @@
 apiVersion: flightctl.io/v1alpha1
 kind: Fleet
 metadata:
-  annotations:
-    fleet-controller/templateVersion: "2025-07-27T13:15:47.97186498Z"
-  creationTimestamp: "2025-07-27T12:10:13.182409Z"
-  generation: 2
   labels: {}
   name: demo-device-fleet-01
 spec:
