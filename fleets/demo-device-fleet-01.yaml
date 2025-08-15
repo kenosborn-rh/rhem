@@ -18,4 +18,4 @@ spec:
     spec:
       applications: []
       os:
-        image: quay.io/kenosborn/edge-device-base:v1
+        image: quay.io/kenosborn/rhem0.7.2-edge-device-base:v1
