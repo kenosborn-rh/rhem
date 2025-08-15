@@ -18,7 +18,7 @@ spec:
           mountPath: /etc/
           path: /etc/
           repository: demo-repository-01
-          targetRevision: main
+          targetRevision: v1
         name: motd-config
       os:
         image: quay.io/kenosborn/rhem0.7.2-edge-device-base:v1
