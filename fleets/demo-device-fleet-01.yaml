@@ -19,6 +19,6 @@ spec:
           path: /etc/
           repository: demo-repository-01
           targetRevision: main
-        name: motd
+        name: motd-test
       os:
         image: quay.io/kenosborn/rhem0.7.2-edge-device-base:v1
