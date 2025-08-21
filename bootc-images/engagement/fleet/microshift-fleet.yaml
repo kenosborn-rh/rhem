@@ -42,4 +42,4 @@ spec:
           path: /etc/flightctl/hooks.d/afterupdating/50-acm-registration.yaml
         name: apply-acm-manifests
       os:
-        image: quay.io/kenosborn/microshift-rhem:v1
+        image: quay.io/kenosborn/microshift-image:v1
