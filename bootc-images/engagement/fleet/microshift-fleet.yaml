@@ -7,7 +7,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      env: microshift
+      env: microshift-test
   template:
     metadata:
       labels:
