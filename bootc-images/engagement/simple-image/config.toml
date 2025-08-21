@@ -27,15 +27,6 @@ useradd -g wheel redhat
 echo "redhat:redhat123" | chpasswd
 mkdir /home/redhat/.ssh
 
-# Ensure the directory exists regardless of image layer timing
-mkdir -p /etc/crio
-
-# Need a pull secret to download container images from whatever registries we need (for images that are not embedded into the bootc image)
-cat > /etc/crio/openshift-pull-secret <<EOF
-{"auths":{"cloud.openshift.com":{"auth":"<snip>==","email":"kosborn@redhat.com"},"quay.io":{"auth":"<snip>","email":"kosborn@redhat.com"},"registry.connect.redhat.com":{"auth":"<snip>","email":"kosborn@redhat.com"},"registry.redhat.io":{"auth":"<snip>","email":"kosborn@redhat.com"}}}
-EOF
-chmod 600 /etc/crio/openshift-pull-secret
-
 # Set a hostname, just for convenience
 # echo "ushift" > /etc/hostname
 # chmod 644 /etc/hostname
