@@ -15,6 +15,11 @@ RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.n
 # Bake in config.yaml
 ADD config.yaml /etc/flightctl/
 
+# Ensure firewalld is present (provides firewall-offline-cmd)
+RUN dnf install -y firewalld && \
+    dnf clean all && \
+    systemctl enable firewalld
+
 # Firewall configuration
 RUN firewall-offline-cmd --zone=public --add-port=22/tcp && \
     firewall-offline-cmd --zone=trusted --add-source=10.42.0.0/16 && \
