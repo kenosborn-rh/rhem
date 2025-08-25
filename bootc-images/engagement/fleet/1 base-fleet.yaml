@@ -1,1 +1,19 @@
-
+apiVersion: flightctl.io/v1alpha1
+kind: Fleet
+metadata:
+  annotations: {}
+  labels: {}
+  name: microshift-fleet-01
+spec:
+  selector:
+    matchLabels:
+      env: microshift-test
+  template:
+    metadata:
+      labels:
+        fleet: microshift-fleet-01
+    spec:
+      applications: []
+      config: []
+      os:
+        image: quay.io/kenosborn/microshift-image:v1
