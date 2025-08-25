@@ -1,0 +1,48 @@
+apiVersion: flightctl.io/v1alpha1
+kind: Fleet
+metadata:
+  name: fleet-acm
+spec:
+  template:
+    spec:
+      os:
+        image: quay.io/someorg/someimage-with-microshift:v1
+      config:
+      - name: acm-crd
+        httpRef:
+          filePath: /var/local/acm-import/crd.yaml
+          repository: acm-registration
+          suffix: /agent-registration/crds/v1
+      - name: acm-import
+        httpRef:
+          filePath: /var/local/acm-import/import.yaml
+          repository: acm-registration
+          suffix: /agent-registration/manifests/{{.metadata.name}}
+      - name: pull-secret
+        inline:
+        - path: "/etc/crio/openshift-pull-secret"
+          content: "{\"auths\":{...}}"
+      - name: apply-acm-manifests
+        inline:
+        - path: "/etc/flightctl/hooks.d/afterupdating/50-acm-registration.yaml"
+          content: |
+            - run: /usr/bin/bash -c "until [ -f $KUBECONFIG ]; do sleep 1; done"
+              timeout: 5m
+              envVars:
+                KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
+            - run: kubectl wait --for=condition=Ready pods --all --all-namespaces --timeout=300s
+              timeout: 5m
+              envVars:
+                KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
+            - if:
+              - path: /var/local/acm-import/crd.yaml
+                op: [created]
+              run: kubectl apply -f /var/local/acm-import/crd.yaml
+              envVars:
+                KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
+            - if:
+              - path: /var/local/acm-import/import.yaml
+                op: [created]
+              run: kubectl apply -f /var/local/acm-import/import.yaml
+              envVars:
+                KUBECONFIG: /var/lib/microshift/resources/kubeadmin/kubeconfig
