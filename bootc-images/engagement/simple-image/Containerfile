@@ -49,4 +49,4 @@ EOF
 RUN systemctl enable microshift-make-rshared.service
 
 # Set selinux to permissive mode
-RUN sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config...
+RUN sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
