@@ -3,6 +3,7 @@ FROM registry.redhat.io/rhel9-eus/rhel-9.6-bootc:9.6
 # Install edge manager agent
 RUN dnf --enablerepo rhacm-2.14-for-rhel-9-x86_64-rpms -y install flightctl-agent && \
     dnf -y clean all && \
+    rm -rf /var/cache/{dnf,yum} && \
     systemctl enable flightctl-agent.service && \
     systemctl mask bootc-fetch-apply-updates.timer 
 
