@@ -2,22 +2,6 @@
 # modify quay.io/kenosborn to your JFrog parameters
 FROM quay.io/kenosborn/microshift-image:v1
 
-# Ensure firewalld is present (provides firewall-offline-cmd)
-RUN dnf install -y firewalld && \
-    dnf clean all && \
-    systemctl enable firewalld
-
-# Firewall configuration
-RUN firewall-offline-cmd --zone=public --add-port=22/tcp && \
-    firewall-offline-cmd --zone=trusted --add-source=10.42.0.0/16 && \
-    firewall-offline-cmd --zone=trusted --add-source=169.254.169.1 && \
-    firewall-offline-cmd --zone=trusted --add-source=fd01::/48
-    # Application-specific firewall configuration
-RUN firewall-offline-cmd --zone=public --add-port=80/tcp && \
-    firewall-offline-cmd --zone=public --add-port=443/tcp && \
-    firewall-offline-cmd --zone=public --add-port=30000-32767/tcp && \
-    firewall-offline-cmd --zone=public --add-port=30000-32767/udp
-
 # Install microshift
 ARG USHIFT_VER=4.18
 # hadolint ignore=SC1091
@@ -29,6 +13,22 @@ RUN . /etc/os-release && dnf upgrade -y --releasever="${VERSION_ID}" && \
     systemctl enable microshift && \
     dnf clean all
 
+# Create a systemd unit to recursively make the root filesystem subtree
+# shared as required by OVN images
+RUN cat > /usr/lib/systemd/system/microshift-make-rshared.service <<'EOF'
+[Unit]
+Description=Make root filesystem shared
+Before=microshift.service
+ConditionVirtualization=container
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mount --make-rshared /
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Enable rshared.service
+RUN systemctl enable microshift-make-rshared.service
 # Ensure path exists
 RUN mkdir -p /etc/crio
 
