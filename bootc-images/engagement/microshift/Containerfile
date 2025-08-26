@@ -2,6 +2,22 @@
 # modify quay.io/kenosborn to your JFrog parameters
 FROM quay.io/kenosborn/microshift-image:v1
 
+# Ensure firewalld is present (provides firewall-offline-cmd)
+RUN dnf install -y firewalld && \
+    dnf clean all && \
+    systemctl enable firewalld
+
+# Firewall configuration
+RUN firewall-offline-cmd --zone=public --add-port=22/tcp && \
+    firewall-offline-cmd --zone=trusted --add-source=10.42.0.0/16 && \
+    firewall-offline-cmd --zone=trusted --add-source=169.254.169.1 && \
+    firewall-offline-cmd --zone=trusted --add-source=fd01::/48
+    # Application-specific firewall configuration
+RUN firewall-offline-cmd --zone=public --add-port=80/tcp && \
+    firewall-offline-cmd --zone=public --add-port=443/tcp && \
+    firewall-offline-cmd --zone=public --add-port=30000-32767/tcp && \
+    firewall-offline-cmd --zone=public --add-port=30000-32767/udp
+
 # Install microshift
 ARG USHIFT_VER=4.18
 # hadolint ignore=SC1091
