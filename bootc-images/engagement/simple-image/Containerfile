@@ -45,7 +45,7 @@ ExecStart=/usr/bin/mount --make-rshared /
 WantedBy=multi-user.target
 EOF
 
-# hadolint ignore=DL3059
+# Enable rshared.service
 RUN systemctl enable microshift-make-rshared.service
 
 # Set selinux to permissive mode
