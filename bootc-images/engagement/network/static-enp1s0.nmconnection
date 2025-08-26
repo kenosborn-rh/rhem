@@ -1,0 +1,14 @@
+[connection]
+# Example: verify interface name and modify accordingly
+id=static-enp1s0
+type=ethernet
+interface-name=enp1s0
+
+[ipv4]
+# Example: change 10.20.0.50 to the IP you want for this device
+address1=10.20.0.86/24,10.20.0.1
+dns=10.20.0.1;8.8.8.8
+method=manual
+
+[ipv6]
+method=ignore
