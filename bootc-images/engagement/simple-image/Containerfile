@@ -1,0 +1,36 @@
+FROM registry.redhat.io/rhel9-eus/rhel-9.6-bootc:9.6
+
+# Install edge manager agent
+RUN dnf --enablerepo rhacm-2.14-for-rhel-9-x86_64-rpms -y install flightctl-agent && \
+    dnf -y clean all && \
+    rm -rf /var/cache/{dnf,yum} && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer 
+
+# Install podman-compose
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm && \
+    dnf -y install podman-compose && \
+    dnf -y clean all && \
+    systemctl enable podman.service
+
+# Bake in config.yaml
+ADD config.yaml /etc/flightctl/
+
+# Ensure firewalld is present (provides firewall-offline-cmd)
+RUN dnf install -y firewalld && \
+    dnf clean all && \
+    systemctl enable firewalld
+
+# Firewall configuration
+RUN firewall-offline-cmd --zone=public --add-port=22/tcp && \
+    firewall-offline-cmd --zone=trusted --add-source=10.42.0.0/16 && \
+    firewall-offline-cmd --zone=trusted --add-source=169.254.169.1 && \
+    firewall-offline-cmd --zone=trusted --add-source=fd01::/48
+    # Application-specific firewall configuration
+RUN firewall-offline-cmd --zone=public --add-port=80/tcp && \
+    firewall-offline-cmd --zone=public --add-port=443/tcp && \
+    firewall-offline-cmd --zone=public --add-port=30000-32767/tcp && \
+    firewall-offline-cmd --zone=public --add-port=30000-32767/udp
+
+# Set selinux to permissive mode
+RUN sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
