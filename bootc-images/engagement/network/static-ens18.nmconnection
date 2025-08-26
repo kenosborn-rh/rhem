@@ -1,0 +1,15 @@
+[connection]
+# Your network interface interface name will most likely vary from 'ens18'
+# You can identify your network interface name by issuing: nmcli device status
+id=static-ens18
+type=ethernet
+interface-name=ens18
+
+[ipv4]
+# Example: change 10.20.0.50 to the IP you want for this device
+address1=10.20.0.86/24,10.20.0.1
+dns=10.20.0.1;8.8.8.8
+method=manual
+
+[ipv6]
+method=ignore
