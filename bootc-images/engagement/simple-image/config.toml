@@ -16,7 +16,7 @@ part /boot/efi --fstype=efi --size=200
 part /boot --fstype=xfs --asprimary --size=800
 part pv.01 --grow
 volgroup rhel pv.01
-logvol / --vgname=rhel --fstype=xfs --size=30720 --name=root
+logvol / --vgname=rhel --fstype=xfs --size=43008 --name=root
 
 # Change this to your 'temporary static IP address' and modify other settings as needed (mask, nameservers)
 network --bootproto=static --device=link --ip=10.20.0.99 --netmask=255.255.255.0 --gateway=10.20.0.1 --nameserver=8.8.8.8,10.20.0.1 --activate --onboot=on
