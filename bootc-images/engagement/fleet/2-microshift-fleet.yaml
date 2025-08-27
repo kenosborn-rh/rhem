@@ -25,10 +25,6 @@ spec:
           filePath: /var/local/acm-import/import.yaml
           repository: acm-registration
           suffix: /agent-registration/manifests/{{.metadata.name}}
-      - name: pull-secret
-        inline:
-        - path: "/etc/crio/openshift-pull-secret"
-          content: "{\"auths\":{...}}"
       - name: apply-acm-manifests
         inline:
         - path: "/etc/flightctl/hooks.d/afterupdating/50-acm-registration.yaml"
