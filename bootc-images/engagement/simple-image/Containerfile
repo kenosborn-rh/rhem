@@ -34,7 +34,7 @@ RUN firewall-offline-cmd --zone=public --add-port=80/tcp && \
 
 # Copy network-setup.sh file - used to set Permanent IP address
 COPY setup-network.sh /usr/local/bin/setup-network.sh
-RUN chomd +x /usr/local/bin/setup-network.sh
+RUN chmod +x /usr/local/bin/setup-network.sh
 
 # Set selinux to permissive mode
 RUN sudo sed -i 's/^SELINUX=enforcing/SELINUX=permissive/' /etc/selinux/config
