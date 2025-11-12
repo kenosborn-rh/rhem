@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  background-color: black;
+  overflow: hidden;
+  font-family: "Consolas", monospace;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 1;
+  filter: brightness(0.9) contrast(1.05);
+}
+
+#hud {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: #00ffcc;
+  font-size: 1.1em;
+  text-shadow: 0 0 8px #00ffee;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid #00ffee44;
+  padding: 12px 18px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  z-index: 10; /* make sure overlay stays on top */
+}
+
+.hud-item {
+  margin-bottom: 5px;
+}
+

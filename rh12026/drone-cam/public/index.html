@@ -1,30 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>DroneCam – SkyGrid Pizza</title>
-  <link rel="stylesheet" href="./styles.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DroneCam Delivery Feed</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="brand">SkyGrid Pizza — DroneCam</div>
-  <div class="hud" id="hud">
-    <div class="row">
-      <span id="droneId">Drone: —</span>
-      <span id="route">Route: —</span>
+  <div id="video-wrapper">
+    <video id="droneVideo" autoplay muted>
+      <source src="media/drone.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+
+    <div id="overlay">
+      <!-- HUD -->
+      <div id="hud">
+        <span id="hud-id">Drone ID: RH1-2026-D</span>
+        <span id="hud-route">Route: Pepperoni Run</span>
+        <span id="hud-altitude">Altitude: 75.0 m</span>
+        <span id="hud-speed">Speed: 45.0 km/h</span>
+        <span id="hud-battery">Battery: 87 %</span>
+      </div>
+
+      <!-- Delivery Banner -->
+      <div id="delivery-banner">🟢 Live Feed — En Route</div>
+
+      <!-- Targeting Flash -->
+      <div id="target-flash"></div>
+
+      <!-- Delivery Marker -->
+      <div id="delivery-marker"></div>
     </div>
-    <div class="row">
-      <span id="speed">Speed: —</span>
-      <span id="alt">Alt: —</span>
-      <span id="heading">Heading: —</span>
-      <span id="battery">Battery: —</span>
-      <span id="eta">ETA: —</span>
-    </div>
-    <div class="row ts">Last update: <span id="ts">—</span></div>
   </div>
 
-  <video id="cam" src="./media/drone.mp4" autoplay loop muted playsinline controls></video>
-
-  <script src="./hud.js"></script>
+  <script src="hud.js"></script>
 </body>
 </html>
+

@@ -1,0 +1,38 @@
+// --- Drone HUD Telemetry Simulation ---
+
+let altitude = 75;
+let speed = 45;
+let battery = 87;
+
+// Find the video element
+const video = document.getElementById("droneVideo");
+
+// Function to update HUD values
+function updateHUD() {
+  altitude += (Math.random() - 0.5) * 2;
+  speed += (Math.random() - 0.5) * 1.5;
+  battery -= 0.02;
+
+  document.getElementById("hud-altitude").textContent = `Altitude: ${altitude.toFixed(1)}m`;
+  document.getElementById("hud-speed").textContent = `Speed: ${speed.toFixed(1)} km/h`;
+  document.getElementById("hud-battery").textContent = `Battery: ${battery.toFixed(1)}%`;
+
+  if (battery <= 0) battery = 100; // loop battery back for long runs
+}
+
+// Start updating once per second
+let hudInterval = setInterval(updateHUD, 1000);
+
+// When the video finishes playing, stop updates and fade HUD
+video.onended = () => {
+  clearInterval(hudInterval);
+
+  const hud = document.getElementById("hud");
+  if (hud) {
+    hud.style.opacity = "0.6";
+    hud.style.transition = "opacity 1.5s ease";
+  }
+
+  console.log("🎥 Video ended — stopped HUD updates.");
+};
+

@@ -1,30 +1,60 @@
-const $ = (id) => document.getElementById(id);
+const video = document.getElementById("droneVideo");
+const banner = document.getElementById("delivery-banner");
+const marker = document.getElementById("delivery-marker");
+const flash = document.getElementById("target-flash");
 
-async function tick(){
-  try{
-    const res = await fetch("/status", {cache:"no-store"});
-    const data = await res.json();
+let altitude = 75;
+let speed = 45;
+let battery = 87;
 
-    $("droneId").textContent = `Drone: ${data.droneId}`;
-    $("route").textContent   = `Route: ${data.route}`;
-    $("speed").textContent   = `Speed: ${data.telemetry.speed_mps} m/s`;
-    $("alt").textContent     = `Alt: ${data.telemetry.altitude_m} m`;
-    $("heading").textContent = `Heading: ${data.telemetry.heading_deg}°`;
-    $("battery").textContent = `Battery: ${data.telemetry.battery_pct}%`;
-    $("eta").textContent     = `ETA: ${fmt(data.telemetry.eta_sec)}`;
-    $("ts").textContent      = new Date(data.ts).toLocaleTimeString();
+// Smoothly descending altitude as flight progresses
+function updateHUD() {
+  if (altitude > 15) altitude -= Math.random() * 1.5; // gentle descent
+  speed = 40 + Math.random() * 5;
+  battery -= 0.05;
 
-    $("battery").classList.toggle("low", data.telemetry.battery_pct <= 20);
-    $("eta").classList.toggle("soon", data.telemetry.eta_sec <= 30);
-  }catch(e){
-    $("ts").textContent = "— (no signal)";
-  }
+  document.getElementById("hud-altitude").textContent = `Altitude: ${altitude.toFixed(1)} m`;
+  document.getElementById("hud-speed").textContent = `Speed: ${speed.toFixed(1)} km/h`;
+  document.getElementById("hud-battery").textContent = `Battery: ${battery.toFixed(1)} %`;
 }
 
-function fmt(sec){
-  const m = Math.floor(sec/60), s = Math.floor(sec%60);
-  return `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-}
+let hudInterval;
+video.addEventListener("play", () => {
+  hudInterval = setInterval(updateHUD, 1000);
+});
 
-setInterval(tick, 1000);
-tick();
+video.addEventListener("ended", () => {
+  clearInterval(hudInterval);
+
+  // 🟡 Landing zone identified
+  banner.style.background = "rgba(255, 255, 0, 0.85)";
+  banner.style.borderColor = "rgba(200, 150, 0, 0.9)";
+  banner.style.color = "#222";
+  banner.textContent = "🟡 Landing Zone Identified — Initiating Drop Sequence";
+
+  // 🎯 Flash effect before marker appears
+  flash.style.visibility = "visible";
+  flash.style.animation = "flash 0.8s ease-out";
+
+  setTimeout(() => {
+    flash.style.visibility = "hidden";
+    flash.style.animation = "none";
+
+    marker.style.visibility = "visible";
+    marker.style.opacity = 1;
+  }, 800);
+
+  // ✅ Delivery complete
+  setTimeout(() => {
+    banner.style.background = "rgba(0, 255, 0, 0.85)";
+    banner.style.borderColor = "rgba(0, 200, 0, 0.9)";
+    banner.style.color = "#111";
+    banner.textContent = "✅ Delivery Commencing — Bon Appetit!";
+
+    // Fade out marker gracefully
+    setTimeout(() => {
+      marker.style.animation = "fadeOut 2s forwards";
+    }, 3000);
+  }, 3500);
+});
+
