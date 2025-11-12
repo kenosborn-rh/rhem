@@ -1,0 +1,12 @@
+{
+  "name": "drone-cam",
+  "version": "1.0.0",
+  "description": "Looping drone camera with HUD and health endpoints",
+  "main": "server.js",
+  "type": "module",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
