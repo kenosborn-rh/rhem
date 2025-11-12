@@ -1,0 +1,20 @@
+FROM node:20-alpine
+WORKDIR /app
+
+# install deps
+COPY package.json package-lock.json* ./
+RUN npm ci --omit=dev || npm install --omit=dev
+
+# app code
+COPY public ./public
+COPY server.js ./
+
+# defaults (override with env)
+ENV PORT=8081 \
+    DRONE_ID="PZ-042" \
+    ROUTE_NAME="Pepperoni Run" \
+    START_ETA_SEC=300 \
+    VIDEO_PATH="/app/public/media/drone.mp4"
+
+EXPOSE 8081
+CMD ["node", "server.js"]
