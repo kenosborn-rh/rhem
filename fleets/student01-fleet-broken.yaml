@@ -1,0 +1,18 @@
+apiVersion: flightctl.io/v1alpha1
+kind: Fleet
+metadata:
+  labels: {}
+  name: student01-fleet
+spec:
+  selector:
+    matchLabels:
+      student: 01
+  template:
+    metadata:
+      labels:
+        fleet: student01-fleet
+    spec:
+      applications: []
+      config: []
+      os:
+        image: quay.io/kenosborn/drone-image:v1:v1
