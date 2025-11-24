@@ -2,8 +2,6 @@ apiVersion: flightctl.io/v1alpha1
 kind: Fleet
 metadata:
   annotations:
-    fleet-controller/templateVersion: "2025-07-27T13:15:47.97186498Z"
-  creationTimestamp: "2025-07-27T12:10:13.182409Z"
   labels: {}
   name: student01-fleet
 spec:
