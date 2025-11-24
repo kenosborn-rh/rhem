@@ -2,7 +2,7 @@ apiVersion: flightctl.io/v1alpha1
 kind: Fleet
 metadata:
   labels: {}
-  name: student01-fleet
+  name: student01-fleet-broken
 spec:
   selector:
     matchLabels:
@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        fleet: student01-fleet
+        fleet: student01-fleet-broken
     spec:
       applications: []
       config: []
