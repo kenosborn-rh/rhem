@@ -6,19 +6,13 @@ metadata:
 spec:
   selector:
     matchLabels:
-      env: demo-01
+      student: 01
   template:
     metadata:
       labels:
         fleet: student01-fleet
     spec:
       applications: []
-      config:
-      - gitRef:
-          mountPath: /etc/
-          path: /etc/
-          repository: demo-repository-01
-          targetRevision: v1
-        name: motd-config
+      config: []
       os:
         image: quay.io/kenosborn/drone-image:v1:v1
