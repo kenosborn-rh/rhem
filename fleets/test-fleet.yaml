@@ -15,4 +15,4 @@ spec:
       applications: []
       config: []
       os:
-        image: quay.io/kenosborn/drone-image:v1
+        image: quay.io/kenosborn/drone-image:v1:v1
