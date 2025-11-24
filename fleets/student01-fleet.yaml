@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      student: 01
+      fleet: student1
   template:
     metadata:
       labels:
