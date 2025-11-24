@@ -21,4 +21,4 @@ spec:
           targetRevision: v1
         name: motd-config
       os:
-        image: quay.io/kenosborn/rhem0.7.2-edge-device-base:v1
+        image: quay.io/kenosborn/drone-image:v1:v1
