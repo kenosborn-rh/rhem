@@ -6,7 +6,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      student: 01
+      student: one
   template:
     metadata:
       labels:
@@ -15,4 +15,4 @@ spec:
       applications: []
       config: []
       os:
-        image: quay.io/kenosborn/drone-image:v1:v1
+        image: quay.io/kenosborn/drone-image:v1
