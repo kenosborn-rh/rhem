@@ -1,0 +1,19 @@
+FROM registry.redhat.io/rhel9-eus/rhel-9.6-bootc:9.6
+
+# Install Edge Manager Agent  
+RUN dnf config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo && \
+    dnf -y clean all && \
+    dnf -y install flightctl-agent-0.9.4-1.el9.x86_64 && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer
+
+# Install podman-compose
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm && \
+    dnf -y install podman-compose && \
+    dnf -y clean all && \
+    systemctl enable podman.service
+
+# Set root password - WORKSHOP PURPOSES ONLY
+RUN echo "root:redhat123" | chpasswd
+
+ADD config.yaml /etc/flightctl/
