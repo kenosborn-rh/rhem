@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+
+
 IMAGE_NAME=quay.io/kenosborn/drone-image
 IMAGE_TAG=v1
 
