@@ -1,0 +1,19 @@
+apiVersion: flightctl.io/v1alpha1
+kind: Fleet
+metadata:
+  labels: {}
+  name: demo-device-fleet-01
+spec:
+  selector:
+    matchLabels:
+      env: kiosk
+      provider: git
+  template:
+    metadata:
+      labels:
+        fleet: git-demo-fleet
+    spec:
+      applications: []
+      config: []
+      os:
+        image: quay.io/kenosborn/drone-image:v1
