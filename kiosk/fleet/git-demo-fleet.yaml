@@ -21,4 +21,4 @@ spec:
             repository: student1-content
             targetRevision: main
       os:
-        image: quay.io/kenosborn/drone-image:v1
+        image: quay.io/kenosborn/rhem02-drone-image:v1
