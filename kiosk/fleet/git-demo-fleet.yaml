@@ -14,6 +14,12 @@ spec:
         fleet: git-demo-fleet
     spec:
       applications: []
-      config: []
+      config: 
+        - name: kiosk-content
+          gitRef:
+            path: /kiosk/content
+            repository: student1-repo
+            targetRevision: main
+            mountPath: /var/kiosk/content
       os:
         image: quay.io/kenosborn/drone-image:v1
