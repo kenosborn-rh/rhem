@@ -1,1 +1,13 @@
+[Unit]
+Description=Edge Kiosk Mode
+After=graphical.target
+
+[Service]
+User=kiosk
+Environment=DISPLAY=:0
+ExecStart=/etc/kiosk/kiosk.sh
+Restart=always
+
+[Install]
+WantedBy=graphical.target
 
