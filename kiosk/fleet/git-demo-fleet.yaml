@@ -20,6 +20,5 @@ spec:
             path: /kiosk/content
             repository: student1-repo
             targetRevision: main
-            mountPath: /var/kiosk/content
       os:
         image: quay.io/kenosborn/drone-image:v1
