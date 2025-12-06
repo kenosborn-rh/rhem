@@ -18,7 +18,7 @@ spec:
         - name: kiosk-content
           gitRef:
             path: /kiosk/content
-            repository: student1-repo
+            repository: student1-content
             targetRevision: main
       os:
         image: quay.io/kenosborn/drone-image:v1
