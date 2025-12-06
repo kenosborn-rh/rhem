@@ -22,4 +22,4 @@ spec:
             targetRevision: main
             mountPath: /var/kiosk/content
       os:
-        image: quay.io/kenosborn/drone-image:v1
+        image: quay.io/kenosborn/rhem02-drone-image:v1
