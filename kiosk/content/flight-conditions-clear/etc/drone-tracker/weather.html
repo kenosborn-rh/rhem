@@ -1,25 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Flight Conditions</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="weather-view clear">
 
-<h1>Flight Conditions</h1>
+  <div class="weather-overlay">
+    <h1>Flight Conditions</h1>
+    <h2>CLEAR</h2>
+    <p>All deliveries operating normally.</p>
 
-<div class="weather clear">☀️ CLEAR</div>
-  🌬️ WINDY
-</div>
+    <button class="primary-btn" onclick="goBack()">
+      Back to Mission Map
+    </button>
 
-<p>✅ All deliveries on schedule</p>
+    <small>Injected via Git: flight-conditions-clear</small>
+  </div>
 
-<button id="back-to-map">Back to Mission Map</button>
-
-<footer>
-  Injected via Git: flight-conditions-clear
-</footer>
-
-<script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
