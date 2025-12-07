@@ -1,27 +1,41 @@
-<main class="mission-layout">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Drone Mission Control</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-  <div class="map-and-controls">
+<body>
 
-    <div class="map-frame">
+  <h1>Drone Mission Control</h1>
+
+  <main class="main-container">
+
+    <div class="map-container">
       <img
         src="images/world-map-grid.jpg"
         alt="World Map"
-        class="world-map"
       />
 
-      <div class="drone d1"></div>
-      <div class="drone d2"></div>
+      <!-- Drone icons -->
+      <div class="drone d1 delay-1"></div>
+      <div class="drone d2 delay-2"></div>
       <div class="drone d3"></div>
     </div>
 
-    <a class="btn-primary" href="weather.html">
-      View Flight Conditions
-    </a>
+    <div class="actions">
+      <a href="weather.html" class="action-button">
+        View Flight Conditions
+      </a>
+    </div>
 
     <div class="footer-note">
       Base UI (static) + Weather injected via Git
     </div>
 
-  </div>
+  </main>
 
-</main>
+  <script src="app.js"></script>
+</body>
+</html>
