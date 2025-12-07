@@ -4,15 +4,17 @@
   <meta charset="UTF-8" />
   <title>Drone Mission Control</title>
   <link rel="stylesheet" href="styles.css" />
-  <script defer src="app.js"></script>
 </head>
+
 <body class="mission">
 
-  <header>
+  <header class="page-header">
     <h1>Drone Mission Control</h1>
   </header>
 
-  <main class="map-container">
+  <main class="mission-layout">
+
+    <!-- WORLD MAP -->
     <div class="map-frame">
       <img
         src="images/world-map-grid.jpg"
@@ -26,16 +28,18 @@
       <div class="drone d3"></div>
     </div>
 
+    <!-- ACTIONS -->
     <div class="controls">
-      <a href="weather.html" class="btn-primary">
+      <a class="btn-primary" href="weather.html">
         View Flight Conditions
       </a>
     </div>
-  </main>
 
-  <footer>
-    <small>Base UI (static) + Weather injected via Git</small>
-  </footer>
+    <div class="footer-note">
+      Base UI (static) + Weather injected via Git
+    </div>
+
+  </main>
 
 </body>
 </html>
