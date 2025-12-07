@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0b1220;
+  color: #ffffff;
+  text-align: center;
+}
+
+header {
+  padding: 1rem;
+  background: #111827;
+}
+
+h1 {
+  margin: 0;
+}
+
+.map {
+  position: relative;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.map-img {
+  width: 900px;
+  max-width: 95%;
+  border-radius: 8px;
+  opacity: 0.9;
+}
+
+.drone {
+  position: absolute;
+  font-size: 2rem;
+  animation: hover 3s infinite ease-in-out;
+}
+
+.d1 { top: 30%; left: 35%; }
+.d2 { top: 45%; left: 55%; }
+.d3 { top: 60%; left: 40%; }
+
+@keyframes hover {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+button {
+  margin: 1.5rem;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+}
+
+button:hover {
+  background: #1d4ed8;
+}
+
+.hidden {
+  display: none;
+}
+
+#weather-container {
+  margin-top: 2rem;
+  font-size: 2.5rem;
+}
+
+footer {
+  margin-top: 2rem;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
