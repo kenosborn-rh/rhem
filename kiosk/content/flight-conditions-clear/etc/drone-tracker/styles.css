@@ -23,15 +23,6 @@ body {
 }
 
 /* =========================
-   Shared width container
-   ========================= */
-
-.container {
-  width: min(1100px, 95%);
-  margin: 0 auto;
-}
-
-/* =========================
    Header
    ========================= */
 
@@ -39,7 +30,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 32px auto 18px;
+  width: min(1100px, 95%);      /* match map width */
+  margin: 32px auto 18px;       /* center header block */
 }
 
 .header h1 {
@@ -96,6 +88,7 @@ body {
 .map-frame {
   position: relative;
   width: min(1100px, 95%);
+  margin: 0 auto;  /* center the map */
   border-radius: 14px;
   overflow: hidden;
   background: #081725;
@@ -126,7 +119,7 @@ body {
   animation: drone-float 3.5s ease-in-out infinite;
 }
 
-/* Drone placement (near numbered markers) */
+/* Drone placement (aligned with the numbered markers) */
 
 .d1 {
   top: 63%;
@@ -162,7 +155,7 @@ body {
 }
 
 /* =========================
-   Footer (REMOVED)
+   Footer (hidden)
    ========================= */
 
 .footer-note {
