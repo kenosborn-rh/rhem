@@ -5,20 +5,26 @@
   <title>Flight Conditions</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="weather-view clear">
 
-  <div class="weather-overlay">
+<!--
+  Change body class via Git:
+  weather-clear | weather-windy | weather-storm
+-->
+<body class="weather weather-clear">
+
+  <main class="weather-card">
     <h1>Flight Conditions</h1>
     <h2>CLEAR</h2>
     <p>All deliveries operating normally.</p>
 
-    <button class="primary-btn" onclick="goBack()">
+    <a href="index.html" class="btn-primary">
       Back to Mission Map
-    </button>
+    </a>
 
-    <small>Injected via Git: flight-conditions-clear</small>
-  </div>
+    <small class="git-note">
+      Injected via Git: flight-conditions-clear
+    </small>
+  </main>
 
-  <script src="app.js"></script>
 </body>
 </html>
