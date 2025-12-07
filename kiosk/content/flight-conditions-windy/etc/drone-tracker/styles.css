@@ -144,7 +144,7 @@ body.weather {
 }
 
 /* Weather variants */
-.weather-clear::before {
+.weather-windy::before {
   background-image: url("images/weather-windy.jpg");
 }
 
