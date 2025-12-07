@@ -1,1 +1,21 @@
-echo "<h1>Drone Tracker</h1>" > /etc/drone-tracker/index.html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Drone Tracker</title>
+</head>
+<body style="font-family: sans-serif; text-align: center; margin-top: 15%">
+  <h1>Drone Tracker</h1>
+
+  <iframe
+    src="weather.html"
+    style="border:none; width:100%; height:200px;">
+  </iframe>
+
+  <hr>
+  <small style="opacity:0.6;">
+    Base UI (static) + Weather injected via Git
+  </small>
+</body>
+</html>
+
