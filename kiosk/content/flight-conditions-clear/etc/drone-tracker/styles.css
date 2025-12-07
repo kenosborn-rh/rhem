@@ -1,5 +1,5 @@
 /* =========================
-   Global reset & theme
+   Reset & Global Theme
    ========================= */
 
 * {
@@ -13,61 +13,80 @@ body {
   height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  color: #ffffff;
-
-  /* BLACK BACKGROUND — FOR REAL THIS TIME */
   background: radial-gradient(
     circle at top,
     #0b1c2d 0%,
     #050a12 65%,
     #02050a 100%
   );
+  color: #ffffff;
 }
 
 /* =========================
-   Index layout
+   Top Header Bar
    ========================= */
 
-.mission-layout {
-  min-height: 100vh;
+.top-bar {
+  max-width: 1100px;
+  margin: 32px auto 20px;
+  padding: 0 12px;
+
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
 }
 
-.map-and-controls {
+.top-bar h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.top-weather-btn {
+  text-decoration: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.top-weather-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
+}
+
+/* =========================
+   Main Layout
+   ========================= */
+
+.main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
-  width: 100%;
+  gap: 24px;
 }
 
 /* =========================
-   Explicit title styling
+   Map Container
    ========================= */
 
-.map-and-controls::before {
-  content: "Drone Mission Control";
-  display: block;
-  font-size: 2.4rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-/* =========================
-   World map frame
-   ========================= */
-
-.map-frame {
+.map-container {
   position: relative;
   max-width: 1100px;
-  width: 90%;
+  width: 100%;
+  margin: 0 auto;
+
   border-radius: 10px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
   background: #0a1a28;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
 }
 
 .world-map {
@@ -77,7 +96,7 @@ body {
 }
 
 /* =========================
-   Drone icons
+   Drone Icons
    ========================= */
 
 .drone {
@@ -88,34 +107,43 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+
   transform: translate(-50%, -50%);
-  filter: drop-shadow(0 0 8px rgba(80, 180, 255, 0.8));
+  filter: drop-shadow(0 0 8px rgba(80, 180, 255, 0.75));
   animation: drone-float 3.5s ease-in-out infinite;
 }
 
-/* Drone positions */
-.drone.d1 {
+/* Individual positions */
+.d1 {
+  top: 50%;
+  left: 47%;
+}
+
+.d2 {
   top: 42%;
-  left: 35%;
+  left: 67%;
 }
 
-.drone.d2 {
-  top: 48%;
-  left: 55%;
-  animation-delay: 0.8s;
+.d3 {
+  top: 63%;
+  left: 56%;
 }
 
-.drone.d3 {
-  top: 60%;
-  left: 45%;
-  animation-delay: 1.6s;
+/* Animation delays */
+.delay-1 {
+  animation-delay: 0.7s;
 }
 
+.delay-2 {
+  animation-delay: 1.4s;
+}
+
+/* Hover effect */
 .drone:hover {
   transform: translate(-50%, -50%) scale(1.15);
 }
 
-/* Float animation */
+/* Floating animation */
 @keyframes drone-float {
   0% {
     transform: translate(-50%, -48%);
@@ -129,93 +157,11 @@ body {
 }
 
 /* =========================
-   Primary button
-   ========================= */
-
-.btn-primary {
-  display: inline-block;
-  text-decoration: none;
-  border-radius: 8px;
-  padding: 14px 28px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  background: linear-gradient(180deg, #3b82f6, #2563eb);
-  color: white;
-  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
-}
-
-/* =========================
-   Footer note
+   Footer
    ========================= */
 
 .footer-note {
   font-size: 0.85rem;
-  opacity: 0.75;
-}
-
-/* =========================
-   WEATHER PAGE
-   ========================= */
-
-.weather {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-size: cover;
-  background-position: center;
-}
-
-.weather-clear {
-  background-image: url("images/weather-clear.jpg");
-}
-
-.weather-windy {
-  background-image: url("images/weather-windy.jpg");
-}
-
-.weather-storm {
-  background-image: url("images/weather-storm.jpg");
-}
-
-.weather-card {
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(8px);
-  padding: 36px 48px;
-  border-radius: 14px;
-  text-align: center;
-  max-width: 420px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-}
-
-.weather-card h1 {
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-}
-
-.weather-card h2 {
-  letter-spacing: 0.15em;
-  font-size: 1.3rem;
-  opacity: 0.9;
-  margin-bottom: 16px;
-}
-
-.weather-card p {
-  font-size: 1rem;
-  opacity: 0.85;
-  margin-bottom: 24px;
-}
-
-.git-note {
-  display: block;
-  margin-top: 18px;
-  font-size: 0.8rem;
   opacity: 0.7;
+  text-align: center;
 }
