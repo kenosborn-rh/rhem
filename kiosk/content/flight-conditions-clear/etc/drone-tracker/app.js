@@ -1,7 +1,2 @@
-function goToWeather() {
-  window.location.href = "weather.html";
-}
-
-function goBack() {
-  window.location.href = "index.html";
-}
+// Placeholder for future dynamic features
+console.log("Drone Mission Control loaded");
