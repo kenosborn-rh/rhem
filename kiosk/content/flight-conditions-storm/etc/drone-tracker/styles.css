@@ -145,7 +145,7 @@ body.weather {
 
 /* Weather variants */
 .weather-clear::before {
-  background-image: url("images/weather-clear.jpg");
+  background-image: url("images/weather-storm.jpg");
 }
 
 /* =========================
