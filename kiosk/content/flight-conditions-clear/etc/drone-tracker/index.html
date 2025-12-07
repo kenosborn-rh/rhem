@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="styles.css" />
   <script defer src="app.js"></script>
 </head>
-<body class="map-view">
+<body class="mission">
 
   <header>
     <h1>Drone Mission Control</h1>
@@ -14,17 +14,23 @@
 
   <main class="map-container">
     <div class="map-frame">
-      <img src="world-map.jpg" alt="World Map" class="map-image" />
+      <img
+        src="images/world-map-grid.jpg"
+        alt="World Map"
+        class="world-map"
+      />
 
       <!-- Drone markers -->
-      <div class="drone drone-1"></div>
-      <div class="drone drone-2"></div>
-      <div class="drone drone-3"></div>
+      <div class="drone d1"></div>
+      <div class="drone d2"></div>
+      <div class="drone d3"></div>
     </div>
 
-    <button class="primary-btn" onclick="goToWeather()">
-      View Flight Conditions
-    </button>
+    <div class="controls">
+      <a href="weather.html" class="btn-primary">
+        View Flight Conditions
+      </a>
+    </div>
   </main>
 
   <footer>
