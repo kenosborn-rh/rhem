@@ -1,30 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
   <title>Drone Mission Control</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
 </head>
-<body>
+<body class="map-view">
 
-<h1>Drone Mission Control</h1>
+  <header>
+    <h1>Drone Mission Control</h1>
+  </header>
 
-<div class="map-container">
-  <img src="map.jpg" alt="World Map">
+  <main class="map-container">
+    <div class="map-frame">
+      <img src="world-map.jpg" alt="World Map" class="map-image" />
 
-  <!-- Drone markers -->
-  <div class="drone" style="top:40%; left:30%"></div>
-  <div class="drone" style="top:45%; left:50%"></div>
-  <div class="drone" style="top:55%; left:65%"></div>
-</div>
+      <!-- Drone markers -->
+      <div class="drone drone-1"></div>
+      <div class="drone drone-2"></div>
+      <div class="drone drone-3"></div>
+    </div>
 
-<br>
+    <button class="primary-btn" onclick="goToWeather()">
+      View Flight Conditions
+    </button>
+  </main>
 
-<button id="view-weather">View Flight Conditions</button>
+  <footer>
+    <small>Base UI (static) + Weather injected via Git</small>
+  </footer>
 
-<footer>
-  Base UI (static) + Weather injected via Git
-</footer>
-
-<script src="app.js"></script>
 </body>
 </html>
