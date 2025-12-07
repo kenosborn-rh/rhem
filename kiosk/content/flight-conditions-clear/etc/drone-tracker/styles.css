@@ -1,143 +1,142 @@
-/* ===== Global Reset ===== */
+/* =========================
+   Global layout & theme
+   ========================= */
+
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
-/* ===== Base Page Styling ===== */
+html,
 body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-               Roboto, Helvetica, Arial, sans-serif;
-  background: radial-gradient(circle at top, #0a1a33 0%, #030a16 70%);
+    Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: radial-gradient(
+    circle at top,
+    #0b1c2d 0%,
+    #050a12 65%,
+    #02050a 100%
+  );
   color: #ffffff;
-  min-height: 100vh;
 }
 
-/* ===== Headings ===== */
+/* =========================
+   Page header
+   ========================= */
+
 h1 {
   text-align: center;
-  font-size: 2rem;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  font-size: 2.4rem;
+  font-weight: 600;
+  margin: 32px 0 24px;
 }
 
-/* ===== Layout Containers ===== */
-.mission-layout {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
+/* =========================
+   Main container
+   ========================= */
 
-.map-and-controls {
+.main-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 18px;
-  width: 100%;
+  gap: 24px;
 }
 
-/* ===== World Map ===== */
-.map-frame {
+/* =========================
+   World map container
+   ========================= */
+
+.map-container {
   position: relative;
-  width: 90vw;
-  max-width: 1200px;
+  max-width: 1100px;
+  width: 90%;
   border-radius: 10px;
   overflow: hidden;
-  background: #000;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  background: #0a1a28;
 }
 
-.world-map {
+.map-container img {
   display: block;
   width: 100%;
   height: auto;
 }
 
-/* ===== Drone Markers ===== */
+/* =========================
+   Drone icons
+   ========================= */
+
 .drone {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background: #4fd1ff;
-  border-radius: 50%;
-  box-shadow: 0 0 12px rgba(79, 209, 255, 0.9);
-}
-
-/* Sample drone positions */
-.d1 { top: 45%; left: 35%; }
-.d2 { top: 50%; left: 52%; }
-.d3 { top: 60%; left: 70%; }
-
-/* ===== Buttons ===== */
-.btn-primary {
-  display: inline-block;
-  background: #1e6bff;
-  color: #ffffff;
-  padding: 12px 26px;
-  border-radius: 6px;
-  font-weight: 600;
-  text-decoration: none;
-  box-shadow: 0 0 15px rgba(30, 107, 255, 0.55);
-  transition: background 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: #3a82ff;
-  box-shadow: 0 0 22px rgba(58, 130, 255, 0.75);
-}
-
-/* ===== Footer / Notes ===== */
-.footer-note {
-  font-size: 0.8rem;
-  opacity: 0.75;
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-/* ===== Weather Page ===== */
-.weather-page {
-  position: relative;
-  min-height: 100vh;
-  background-size: cover;
-  background-position: center;
+  width: 42px;
+  height: 42px;
+  background-image: url("images/drone-icon.png");
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 8px rgba(80, 180, 255, 0.75));
+  animation: drone-float 3.5s ease-in-out infinite;
 }
 
-/* Overlay card */
-.weather-overlay {
-  position: absolute;
-  inset: 0;
+/* Slight variation for realism */
+.drone.delay-1 {
+  animation-delay: 0.7s;
+}
+.drone.delay-2 {
+  animation-delay: 1.4s;
+}
+
+/* Hover effect (optional, looks nice) */
+.drone:hover {
+  transform: translate(-50%, -50%) scale(1.15);
+}
+
+/* Floating animation */
+@keyframes drone-float {
+  0% {
+    transform: translate(-50%, -48%);
+  }
+  50% {
+    transform: translate(-50%, -55%);
+  }
+  100% {
+    transform: translate(-50%, -48%);
+  }
+}
+
+/* =========================
+   Action button
+   ========================= */
+
+.actions {
   display: flex;
-  align-items: center;
   justify-content: center;
+  width: 100%;
 }
 
-/* Weather content card */
-.weather-card {
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(10px);
-  border-radius: 10px;
-  padding: 32px 40px;
-  text-align: center;
-  max-width: 420px;
-  width: 90%;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+button,
+.action-button {
+  appearance: none;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  color: white;
+  box-shadow: 0 8px 24px rgba(37, 99, 235, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.weather-card h2 {
-  font-size: 1.6rem;
-  margin-bottom: 8px;
+button:hover,
+.action-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.6);
 }
 
-.weather-card .condition {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 14px 0;
-}
-
-.weather-card .details {
-  font-size: 0.95rem;
-  opacity: 0.85;
-  margin-bottom: 20px;
-}
+bu
