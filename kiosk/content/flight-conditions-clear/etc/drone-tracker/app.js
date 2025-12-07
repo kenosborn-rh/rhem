@@ -1,12 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const viewWeather = document.getElementById("view-weather");
-  const back = document.getElementById("back-to-map");
+function goToWeather() {
+  window.location.href = "weather.html";
+}
 
-  if (viewWeather) {
-    viewWeather.onclick = () => location.href = "weather.html";
-  }
-
-  if (back) {
-    back.onclick = () => location.href = "/";
-  }
-});
+function goBack() {
+  window.location.href = "index.html";
+}
