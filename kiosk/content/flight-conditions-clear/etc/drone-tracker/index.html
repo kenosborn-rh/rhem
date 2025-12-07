@@ -1,1 +1,42 @@
-echo "<h1>Drone Tracker</h1>" > /etc/drone-tracker/index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Drone Mission Control</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header>
+    <h1>Drone Mission Control</h1>
+  </header>
+
+  <main>
+    <section id="map-view">
+      <div class="map">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Equirectangular_projection_SW.jpg/1280px-Equirectangular_projection_SW.jpg"
+             alt="Map" class="map-img"/>
+
+        <div class="drone d1">🛸</div>
+        <div class="drone d2">🛸</div>
+        <div class="drone d3">🛸</div>
+      </div>
+
+      <button id="weatherBtn">View Flight Conditions</button>
+    </section>
+
+    <section id="weather-view" class="hidden">
+      <div id="weather-container">
+        <!-- weather.html injected here -->
+      </div>
+      <button id="backBtn">Back to Mission Map</button>
+    </section>
+  </main>
+
+  <footer>
+    <small>Base UI (static) + Weather injected via Git</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
