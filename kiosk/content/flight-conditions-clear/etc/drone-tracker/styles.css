@@ -1,6 +1,7 @@
 /* =========================
-   Global reset
+   Global layout & theme
    ========================= */
+
 * {
   box-sizing: border-box;
 }
@@ -12,24 +13,16 @@ body {
   height: 100%;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  color: #ffffff;
-}
-
-/* =========================
-   MISSION PAGE BACKGROUND
-   ========================= */
-body:not(.weather) {
   background: radial-gradient(
     circle at top,
     #0b1c2d 0%,
     #050a12 65%,
     #02050a 100%
   );
+  color: #ffffff;
 }
 
-/* =========================
-   Layout
-   ========================= */
+/* Wrap everything so content is centered in the viewport */
 .mission-layout {
   max-width: 1100px;
   margin: 40px auto 60px;
@@ -37,8 +30,9 @@ body:not(.weather) {
 }
 
 /* =========================
-   Header row
+   Header + button row
    ========================= */
+
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -52,10 +46,11 @@ body:not(.weather) {
   margin: 0;
 }
 
-/* =========================
-   Button
-   ========================= */
+/* Primary button used on both pages */
 .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px 26px;
   border-radius: 999px;
   background: linear-gradient(180deg, #3b82f6, #2563eb);
@@ -64,17 +59,21 @@ body:not(.weather) {
   font-size: 0.95rem;
   text-decoration: none;
   box-shadow: 0 12px 30px rgba(37, 99, 235, 0.7);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: 0 18px 40px rgba(37, 99, 235, 0.9);
+  background: linear-gradient(180deg, #4f8df7, #1d4ed8);
 }
 
 /* =========================
-   Map container
+   World map container
    ========================= */
+
 .map-frame {
   position: relative;
   width: 100%;
@@ -92,8 +91,9 @@ body:not(.weather) {
 }
 
 /* =========================
-   Drone icons (CORRECTED)
+   Drone icons
    ========================= */
+
 .drone {
   position: absolute;
   width: 42px;
@@ -107,40 +107,52 @@ body:not(.weather) {
   animation: drone-float 3.5s ease-in-out infinite;
 }
 
-/* ✅ Matches your red arrows precisely */
-.d1 { /* SE Africa / Indian Ocean */
-  top: 65%;
-  left: 58%;
+/* Drone positions — VERIFIED */
+
+/* 1 – Southern Indian Ocean, SE of Africa */
+.d1 {
+  top: 69%;
+  left: 60%;
 }
 
-.d2 { /* Europe */
-  top: 30%;
-  left: 53%;
+/* 2 – Central Europe / UK region */
+.d2 {
+  top: 33%;
+  left: 52%;
   animation-delay: 0.6s;
 }
 
-.d3 { /* Western/Central Canada */
-  top: 34%;
-  left: 31%;
+/* 3 – Central / Western Canada */
+.d3 {
+  top: 32%;
+  left: 34%;
   animation-delay: 1.2s;
 }
 
+/* Float animation */
 @keyframes drone-float {
-  0%   { transform: translate(-50%, -48%); }
-  50%  { transform: translate(-50%, -55%); }
-  100% { transform: translate(-50%, -48%); }
+  0% {
+    transform: translate(-50%, -48%);
+  }
+  50% {
+    transform: translate(-50%, -55%);
+  }
+  100% {
+    transform: translate(-50%, -48%);
+  }
 }
 
 /* =========================
-   WEATHER PAGE (FIXED)
+   WEATHER PAGE — FINAL FIX
    ========================= */
+
 body.weather {
-  background: none; /* IMPORTANT */
+  background: none;
   min-height: 100vh;
   position: relative;
 }
 
-/* Fullscreen image */
+/* Full-screen background image */
 .weather::before {
   content: "";
   position: fixed;
@@ -154,7 +166,7 @@ body.weather {
   background-image: url("images/weather-clear.jpg");
 }
 
-/* Dark overlay */
+/* Darken page slightly (NOT the card) */
 .weather::after {
   content: "";
   position: fixed;
@@ -163,21 +175,50 @@ body.weather {
   z-index: -1;
 }
 
-/* Card container */
+/* Page layout */
 .weather-card {
-  position: relative;
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  text-align: center;
   padding: 24px;
 }
 
-.weather-card > * {
-  background: rgba(15, 23, 42, 0.88);
-  padding: 24px 36px;
-  border-radius: 16px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);
+/* SINGLE unified Flight Conditions panel */
+.weather-card-inner {
+  background: rgba(8, 14, 24, 0.94);
+  padding: 38px 46px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
+  max-width: 420px;
+}
+
+/* Text styles */
+.weather-card-inner h1 {
+  font-size: 2.3rem;
+  margin: 0 0 12px;
+}
+
+.weather-card-inner h2 {
+  font-size: 1.8rem;
+  letter-spacing: 0.18em;
+  margin: 6px 0 18px;
+}
+
+.weather-card-inner p {
+  margin: 0 0 22px;
+  font-size: 1rem;
+}
+
+.weather-card-inner .btn-primary {
+  margin-top: 6px;
+}
+
+/* Git note (kept subtle) */
+.git-note {
+  display: block;
+  margin-top: 16px;
+  font-size: 0.75rem;
+  opacity: 0.75;
 }
