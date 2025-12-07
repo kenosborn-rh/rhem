@@ -114,7 +114,7 @@ body.weather {
 }
 
 /* ✅ FINAL positions (aligned to your arrows) */
-.d1 { top: 55%; left: 56%; }  /* SE of Africa */
+.d1 { top: 55%; left: 62% }  /* SE of Africa */
 .d2 { top: 19%; left: 52%; }  /* Europe */
 .d3 { top: 22%; left: 24%; }  /* North America */
 
