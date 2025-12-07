@@ -110,7 +110,6 @@ body {
   animation: drone-float 3.5s ease-in-out infinite;
 }
 
-/* Example positions */
 .d1 { top: 55%; left: 48%; }
 .d2 { top: 62%; left: 60%; animation-delay: 0.7s; }
 .d3 { top: 58%; left: 72%; animation-delay: 1.4s; }
@@ -145,23 +144,23 @@ body {
   padding: 40px;
 }
 
-/* Weather backgrounds */
+/* ✅ NO darkening overlay here */
 .weather-clear {
-  background:
-    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.75)),
-    url("images/weather-clear.jpg");
+  background-image: url("images/weather-clear.jpg");
   background-size: cover;
   background-position: center;
 }
 
-/* Card overlay */
+/* Glass-style card */
 .weather-card {
-  background: rgba(5, 10, 18, 0.72);
-  border: 1px solid rgba(255,255,255,0.15);
-  border-radius: 14px;
-  padding: 40px 56px;
+  background: rgba(8, 15, 24, 0.65); /* ✅ visible translucency */
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 44px 60px;
   max-width: 520px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
 }
 
 .weather-card h1 {
@@ -171,8 +170,8 @@ body {
 
 .weather-card h2 {
   font-size: 1.6rem;
-  letter-spacing: 0.12em;
-  margin: 16px 0 12px;
+  letter-spacing: 0.14em;
+  margin: 18px 0 12px;
 }
 
 .weather-card p {
