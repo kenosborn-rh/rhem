@@ -22,7 +22,10 @@ body {
   color: #ffffff;
 }
 
-/* Wrap everything so content is centered in the viewport */
+/* =========================
+   Main mission layout
+   ========================= */
+
 .mission-layout {
   max-width: 1100px;
   margin: 40px auto 60px;
@@ -30,7 +33,7 @@ body {
 }
 
 /* =========================
-   Header + button row
+   Header + action button
    ========================= */
 
 .top-bar {
@@ -46,7 +49,7 @@ body {
   margin: 0;
 }
 
-/* Primary button used on both pages */
+/* Primary button */
 .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -107,29 +110,28 @@ body {
   animation: drone-float 3.5s ease-in-out infinite;
 }
 
-/* Drone positions — VERIFIED */
+/* Positions aligned to your red-arrow reference */
 
-/* 1 – Southern Indian Ocean, SE of Africa */
+/* 1 — SE Africa / Indian Ocean */
 .d1 {
   top: 69%;
   left: 60%;
 }
 
-/* 2 – Central Europe / UK region */
+/* 2 — Europe */
 .d2 {
   top: 33%;
   left: 52%;
   animation-delay: 0.6s;
 }
 
-/* 3 – Central / Western Canada */
+/* 3 — Canada */
 .d3 {
   top: 32%;
   left: 34%;
   animation-delay: 1.2s;
 }
 
-/* Float animation */
 @keyframes drone-float {
   0% {
     transform: translate(-50%, -48%);
@@ -143,39 +145,31 @@ body {
 }
 
 /* =========================
-   WEATHER PAGE — FINAL FIX
+   Weather page styles
    ========================= */
 
-body.weather {
-  background: none;
+.weather {
+  margin: 0;
   min-height: 100vh;
-  position: relative;
+  color: #ffffff;
 }
 
-/* Full-screen background image */
+/* Fullscreen background image */
 .weather::before {
   content: "";
   position: fixed;
   inset: 0;
   background-size: cover;
   background-position: center;
-  z-index: -2;
+  z-index: -1;
 }
 
+/* Weather variants */
 .weather-clear::before {
   background-image: url("images/weather-clear.jpg");
 }
 
-/* Darken page slightly (NOT the card) */
-.weather::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: -1;
-}
-
-/* Page layout */
+/* Centering container */
 .weather-card {
   min-height: 100vh;
   display: flex;
@@ -184,17 +178,35 @@ body.weather {
   padding: 24px;
 }
 
-/* SINGLE unified Flight Conditions panel */
+/* ✅ CARD CONTAINER */
 .weather-card-inner {
-  background: rgba(8, 14, 24, 0.94);
-  padding: 38px 46px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85);
+  position: relative;
   max-width: 420px;
+  width: 100%;
+  padding: 32px 36px;
+  border-radius: 16px;
+
+  /* 🔧 CHANGE IS HERE — more transparent than before */
+  background: rgba(10, 20, 30, 0.58);
+
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
 
-/* Text styles */
+/* Subtle vignette inside card */
+.weather-card-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 255, 0.08),
+    rgba(0, 0, 0, 0.55)
+  );
+  z-index: -1;
+}
+
 .weather-card-inner h1 {
   font-size: 2.3rem;
   margin: 0 0 12px;
@@ -203,22 +215,21 @@ body.weather {
 .weather-card-inner h2 {
   font-size: 1.8rem;
   letter-spacing: 0.18em;
-  margin: 6px 0 18px;
+  margin: 4px 0 16px;
 }
 
 .weather-card-inner p {
-  margin: 0 0 22px;
+  margin: 0 0 20px;
   font-size: 1rem;
 }
 
 .weather-card-inner .btn-primary {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
-/* Git note (kept subtle) */
 .git-note {
   display: block;
-  margin-top: 16px;
+  margin-top: 14px;
   font-size: 0.75rem;
-  opacity: 0.75;
+  opacity: 0.8;
 }
