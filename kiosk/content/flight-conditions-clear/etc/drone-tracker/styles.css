@@ -114,9 +114,9 @@ body.weather {
 }
 
 /* ✅ FINAL positions (aligned to your arrows) */
-.d1 { top: 69%; left: 60%; }  /* SE of Africa */
+.d1 { top: 72%; left: 55%; }  /* SE of Africa */
 .d2 { top: 33%; left: 52%; }  /* Europe */
-.d3 { top: 32%; left: 34%; }  /* Canada */
+.d3 { top: 22%; left: 24%; }  /* North America */
 
 @keyframes drone-float {
   0%   { transform: translate(-50%, -48%); }
