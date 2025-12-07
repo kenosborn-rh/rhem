@@ -8,26 +8,33 @@
 
 <body>
 
-  <h1>Drone Mission Control</h1>
+  <!-- =========================
+       Header
+       ========================= -->
+  <header class="top-bar">
+    <h1>Drone Mission Control</h1>
 
+    <a href="weather.html" class="top-weather-btn">
+      View Flight Conditions
+    </a>
+  </header>
+
+  <!-- =========================
+       Main Content
+       ========================= -->
   <main class="main-container">
 
     <div class="map-container">
       <img
         src="images/world-map-grid.jpg"
         alt="World Map"
+        class="world-map"
       />
 
       <!-- Drone icons -->
-      <div class="drone d1 delay-1"></div>
-      <div class="drone d2 delay-2"></div>
-      <div class="drone d3"></div>
-    </div>
-
-    <div class="actions">
-      <a href="weather.html" class="action-button">
-        View Flight Conditions
-      </a>
+      <div class="drone d1"></div>
+      <div class="drone d2 delay-1"></div>
+      <div class="drone d3 delay-2"></div>
     </div>
 
     <div class="footer-note">
