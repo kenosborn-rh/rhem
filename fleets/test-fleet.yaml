@@ -13,11 +13,6 @@ spec:
         fleet: test-fleet
     spec:
       applications: []
-      config:
-        - name: motd-update
-          inline:
-            - path: /etc/motd
-              content: |+
-                Hello from our Demo!!
+      config: []
       os:
         image: quay.io/kenosborn/drone-image:v1
