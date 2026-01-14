@@ -14,5 +14,3 @@ spec:
     spec:
       applications: []
       config: []
-      os:
-        image: quay.io/user/drone-image:v1
