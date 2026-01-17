@@ -11,7 +11,7 @@ COPY server.js ./
 
 # defaults (override with env)
 ENV PORT=8081 \
-    DRONE_ID="PZ-042" \
+    DRONE_ID="Drone ID: RH1-2026-D" \
     ROUTE_NAME="Pepperoni Run" \
     START_ETA_SEC=300 \
     VIDEO_PATH="/app/public/media/drone.mp4"
