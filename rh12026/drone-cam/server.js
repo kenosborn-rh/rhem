@@ -22,4 +22,3 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`DroneCam Service running on port ${PORT}`);
 });
-
