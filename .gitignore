@@ -8,3 +8,7 @@
 *.pem
 client-enrollment.*
 ca.crt
+*.rpm
+bootc-images/**/logs/
+config.yaml
+**/config.yaml
