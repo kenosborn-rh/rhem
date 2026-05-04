@@ -1,0 +1,76 @@
+FROM registry.redhat.io/rhel9-eus/rhel-9.6-bootc:9.6
+RUN dnf --enablerepo ansible-automation-platform-2.5-for-rhel-9-x86_64-rpms -y install flightctl-agent-0.10.0-1.el9em && \
+    dnf -y clean all && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer
+
+#RUN dnf config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo && \
+#    dnf -y clean all && \
+#    dnf -y install flightctl-agent-0.9.4-1.el9.x86_64 && \
+#    systemctl enable flightctl-agent.service && \
+#    systemctl mask bootc-fetch-apply-updates.timer
+
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm && \
+    dnf -y install podman-compose && \
+    dnf -y clean all && \
+    systemctl enable podman.service
+
+# Set root password - DEMO PURPOSES ONLY
+RUN echo "root:!Greaton399" | chpasswd
+
+ADD config.yaml /etc/flightctl/
+
+# Agent cert-manager mapping -> otelcol cert/key paths
+RUN tee /etc/flightctl/certs.yaml >/dev/null <<'CSR'
+- name: otel
+  provisioner:
+    type: csr
+    config:
+      signer: "flightctl.io/device-svc-client"
+      common-name: "otel-{{.DEVICE_ID}}"
+  storage:
+    type: filesystem
+    config:
+      cert-path: "/etc/otelcol/certs/otel.crt"
+      key-path:  "/etc/otelcol/certs/otel.key"
+CSR
+
+# Minimal OTEL config
+RUN tee /etc/otelcol/config.yaml >/dev/null <<'OTEL'
+receivers:
+  hostmetrics:
+    collection_interval: 10s
+    scrapers: { cpu: {}, memory: {} }
+exporters:
+  otlp:
+    endpoint: telemetry-gateway.10.20.0.148.nip.io:4317
+    tls:
+      ca_file:   /etc/otelcol/certs/ca.crt
+      cert_file: /etc/otelcol/certs/otel.crt
+      key_file:  /etc/otelcol/certs/otel.key
+      insecure:  false
+service:
+  pipelines:
+    metrics:
+      receivers: [hostmetrics]
+      exporters: [otlp]
+OTEL
+
+# ---- minimal otelcol systemd unit (waits for cert+key) ----
+RUN mkdir -p /usr/lib/systemd/system
+RUN cat > /usr/lib/systemd/system/otelcol.service <<'UNIT'
+[Unit]
+Description=OpenTelemetry Collector (device addon)
+After=network-online.target flightctl-agent.service
+Wants=network-online.target
+[Service]
+Type=simple
+ExecStartPre=/bin/sh -lc 'for i in $(seq 1 120); do [ -s /etc/otelcol/certs/otel.crt ] && [ -s /etc/otelcol/certs/otel.key ] && exit 0; sleep 1; done; exit 1'
+ConditionPathExists=/etc/otelcol/config.yaml
+ExecStart=/usr/bin/opentelemetry-collector  --config=/etc/otelcol/config.yaml
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+UNIT
+
+RUN systemctl enable otelcol.service

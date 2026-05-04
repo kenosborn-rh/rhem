@@ -1,0 +1,30 @@
+FROM registry.redhat.io/rhel9/rhel-bootc:9.6
+
+RUN dnf --enablerepo ansible-automation-platform-2.5-for-rhel-9-x86_64-rpms -y install flightctl-agent  && \
+    dnf -y clean all && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer
+
+# RUN subscription-manager repos --enable rhacm-2.13-for-rhel-9-x86_64-rpms && \
+#    dnf -y install flightctl-agent && \
+#    dnf -y clean all && \
+#    systemctl enable flightctl-agent.service && \
+#    systemctl mask bootc-fetch-apply-updates.timer 
+
+#RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm && \
+#    dnf -y install podman-compose && \
+#    dnf -y clean all && \
+#    systemctl enable podman.service
+
+RUN useradd -m -d /var/home/redhat -G wheel redhat && \
+    echo "redhat:redhat123" | chpasswd
+
+RUN dnf -y install git python3-pip && pip install podman-compose
+
+# Disable SELinux
+# RUN sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
+
+ADD config.yaml /etc/flightctl/
+
+RUN bootc container lint
+

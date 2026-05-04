@@ -1,0 +1,104 @@
+apiVersion: flightctl.io/v1beta1
+kind: Device
+metadata:
+  annotations:
+    device-controller/console: '[]'
+    device-controller/renderedSpecHash: 020bf55cd2e19fe3206469d6cdc20b77722766f24a8cd5642618059867b7a854
+    device-controller/renderedVersion: "185"
+    fleet-controller/renderedTemplateVersion: student1-fleet-8
+    fleet-controller/templateVersion: student1-fleet-8
+  creationTimestamp: "2025-12-10T13:48:13.31964Z"
+  generation: 68
+  labels:
+    alias: drone-01
+    fleet: student1
+    weather: clear
+  name: l1306fe6doppet09l2n6vsu7ggb4c2jk9h1vb5ocfr1viphhgc20
+  owner: Fleet/student1-fleet
+  resourceVersion: "1243"
+spec:
+  applications:
+  - appType: quadlet
+    envVars: {}
+    inline:
+    - content: "spec:\n  applications:\n    - name: drone-tracker-nginx\n      appType:
+        quadlet\n      inline:\n        - path: app.container\n          content:
+        |\n            [Container]\n            Image=docker.io/library/nginx:1.25\n
+        \           Exec=nginx -g \"daemon off;\"\n            PublishPort=8080:80\n
+        \           Volume=/etc/drone-tracker:/usr/share/nginx/html:ro,Z\n            \n
+        \           [Service]\n            Restart=on-failure\n            RestartSec=20\n\n
+        \           [Install]\n            WantedBy=default.target"
+      contentEncoding: plain
+      path: drone-tracker.container
+    name: drone-tracker-app
+    volumes: []
+  config:
+  - gitRef:
+      path: /kiosk/content/flight-conditions-clear
+      repository: student-repo
+      targetRevision: v3.48
+    name: drone-tracker-web-content
+  os:
+    image: quay.io/kenosborn/rhem01-drone-image:v1
+status:
+  applications:
+  - appType: quadlet
+    embedded: false
+    name: drone-tracker-app
+    ready: 1/1
+    restarts: 0
+    status: Running
+  applicationsSummary:
+    info: Device's application workloads are healthy.
+    status: Healthy
+  conditions:
+  - lastTransitionTime: "2025-12-11T16:59:06.704716214Z"
+    message: 'Updated to desired renderedVersion: 185'
+    reason: Updated
+    status: "False"
+    type: Updating
+  - lastTransitionTime: "2025-12-10T19:47:24.672422329Z"
+    message: ""
+    reason: Valid
+    status: "True"
+    type: SpecValid
+  config:
+    renderedVersion: "185"
+  integrity:
+    deviceIdentity:
+      status: Unsupported
+    info: TPM not present or not enabled on this device
+    status: Unsupported
+    tpm:
+      status: Unsupported
+  lifecycle:
+    status: Enrolled
+  os:
+    image: quay.io/kenosborn/rhem01-drone-image:v1
+    imageDigest: sha256:d3d6706ddcafc885c2965e219101bc789a523432e1d05eadc63687f9fe0191c3
+  resources:
+    cpu: Healthy
+    disk: Healthy
+    memory: Healthy
+  summary:
+    info: Device's system resources are healthy.
+    status: Online
+  systemInfo:
+    agentVersion: v1.0.0-rc2
+    architecture: amd64
+    bootID: 3d1cebc3-2cb9-40eb-acf3-0b46477ba442
+    distroName: Red Hat Enterprise Linux
+    distroVersion: 9.6 (Plow)
+    hostname: localhost.localdomain
+    kernel: 5.14.0-570.26.1.el9_6.x86_64
+    netInterfaceDefault: ens18
+    netIpDefault: 10.20.0.25/24
+    netMacDefault: bc:24:11:b2:b7:3a
+    operatingSystem: linux
+    productName: Standard PC (i440FX + PIIX, 1996)
+    productSerial: ""
+    productUuid: b4b88cfd-1612-4e36-9a93-dd20e885918c
+  updated:
+    info: Device was updated to the fleet's latest device spec.
+    status: UpToDate
+

@@ -1,1 +1,10 @@
 *output*/
+*.qcow2
+*.iso
+*sosreport*
+# Edge Manager enrollment / cert material
+*.crt
+*.key
+*.pem
+client-enrollment.*
+ca.crt

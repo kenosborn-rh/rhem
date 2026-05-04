@@ -1,0 +1,21 @@
+
+
+FROM registry.redhat.io/rhel9-eus/rhel-9.6-bootc:9.6
+
+# Install Edge Manager Agent  
+RUN dnf config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo && \
+    dnf -y clean all && \
+    dnf -y install flightctl-agent-0:0.10.0-1.el9.x86_64 && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer
+
+#RUN dnf --enablerepo ansible-automation-platform-2.5-for-rhel-9-x86_64-rpms -y install flightctl-agent-0.10.0-1.el9em && \
+#    dnf -y clean all && \
+#    systemctl enable flightctl-agent.service && \
+#    systemctl mask bootc-fetch-apply-updates.timer
+
+# Set root password - WORKSHOP PURPOSES ONLY
+RUN echo "root:redhat123" | chpasswd
+
+ADD config.yaml /etc/flightctl/
+

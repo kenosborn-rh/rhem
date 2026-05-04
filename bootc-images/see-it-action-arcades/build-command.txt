@@ -1,0 +1,4 @@
+IMAGE_NAME=quay.io/kenosborn/demo-base-image
+IMAGE_TAG=v1
+
+sudo podman build -t "${IMAGE_NAME}:${IMAGE_TAG}" .

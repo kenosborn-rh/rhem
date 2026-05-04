@@ -1,0 +1,6 @@
+FROM registry.redhat.io/rhel9/rhel-bootc:9.6
+RUN dnf -y config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo && \
+    dnf -y install flightctl-agent-0.9.4~rc3-1.el9.x86_64 && \
+    dnf -y clean all && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer

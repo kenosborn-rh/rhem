@@ -1,0 +1,48 @@
+apiVersion: flightctl.io/v1alpha1
+kind: Fleet
+metadata:
+  annotations:
+    fleet-controller/templateVersion: demo-fleet-01-1
+  creationTimestamp: "2025-12-03T14:59:14.674617Z"
+  generation: 1
+  labels: {}
+  name: demo-fleet-01
+  resourceVersion: "3"
+spec:
+  selector:
+    matchLabels:
+      env: demo
+      team: support
+  template:
+    metadata:
+      labels:
+        fleet: demo-fleet-01
+    spec:
+      applications:
+      - envVars: {}
+        image: quay.io/kenosborn/drone-mission-app:v1
+        name: drone-mission-app
+      config: []
+      os:
+        image: quay.io/kenosborn/base-image:v1
+      resources:
+      - monitorType: Disk
+        samplingInterval: 5s
+        path: /
+        alertRules:
+        - severity: Warning
+          duration: 1m
+          percentage: 5
+          description: Disk space for / is >5% full for over 1m.
+        - severity: Critical
+          duration: 10m
+          percentage: 90
+          description: Disk space for / is >90% full over 10m.
+status:
+  conditions:
+  - lastTransitionTime: "2025-12-03T14:59:14.682334334Z"
+    message: ""
+    reason: Valid
+    status: "True"
+    type: Valid
+

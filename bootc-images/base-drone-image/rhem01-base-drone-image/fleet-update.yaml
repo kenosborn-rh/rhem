@@ -1,0 +1,50 @@
+apiVersion: flightctl.io/v1beta1
+kind: Fleet
+metadata:
+  annotations:
+    fleet-controller/templateVersion: student1-fleet-9
+  creationTimestamp: "2025-12-10T19:46:31.572942Z"
+  generation: 9
+  labels: {}
+  name: student1-fleet
+  resourceVersion: "19"
+spec:
+  selector:
+    matchLabels:
+      fleet: student1
+  template:
+    metadata:
+      labels:
+        fleet: student1-fleet
+    spec:
+      applications:
+      - appType: quadlet
+        envVars: {}
+        inline:
+        - content: "spec:\n  applications:\n    - name: drone-tracker-nginx\n      appType:
+            quadlet\n      inline:\n        - path: app.container\n          content:
+            |\n            [Container]\n            Image=docker.io/library/nginx:1.25\n
+            \           Exec=nginx -g \"daemon off;\"\n            PublishPort=8080:80\n
+            \           Volume=/etc/drone-tracker:/usr/share/nginx/html:ro,Z\n            \n
+            \           [Service]\n            Restart=on-failure\n            RestartSec=20\n\n
+            \           [Install]\n            WantedBy=default.target"
+          contentEncoding: plain
+          path: drone-tracker.container
+        name: drone-tracker-app
+        volumes: []
+      config:
+      - gitRef:
+          path: /kiosk/content/flight-conditions-{{ .metadata.labels.weather }}
+          repository: student-repo
+          targetRevision: v3.48
+        name: drone-tracker-web-content
+      os:
+        image: quay.io/kenosborn/drone-image:v1
+status:
+  conditions:
+  - lastTransitionTime: "2025-12-10T19:46:31.584003842Z"
+    message: ""
+    reason: Valid
+    status: "True"
+    type: Valid
+

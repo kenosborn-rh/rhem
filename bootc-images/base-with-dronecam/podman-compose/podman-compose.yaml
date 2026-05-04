@@ -1,0 +1,6 @@
+version: '3'
+services:
+  drone-mission-app:
+    image: quay.io/kenosborn/drone-cam:v1
+    ports:
+      - "8081:8081"

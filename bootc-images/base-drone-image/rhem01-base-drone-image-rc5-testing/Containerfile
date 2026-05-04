@@ -1,0 +1,15 @@
+FROM registry.redhat.io/rhel9/rhel-bootc:9.6
+# FROM quay.io/centos-bootc/centos-bootc:stream9
+
+# Install Edge Manager Agent  
+RUN dnf config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo && \
+    dnf -y clean all && \
+    dnf -y install flightctl-agent-0:1.0.0~rc5-1.el9.x86_64 && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer
+
+# Set root password - DEMO PURPOSES ONLY
+RUN echo "root:redhat123" | chpasswd
+
+# Add Edge Manager enrollment information
+ADD config.yaml /etc/flightctl/

@@ -1,0 +1,83 @@
+apiVersion: flightctl.io/v1beta1
+kind: Fleet
+metadata:
+  annotations:
+    fleet-controller/templateVersion: demo-fleet-6
+  creationTimestamp: "2026-01-21T16:28:39.389598Z"
+  generation: 6
+  labels: {}
+  name: demo-fleet
+  resourceVersion: "13"
+spec:
+  selector:
+    matchLabels:
+      fleet: demo
+  template:
+    metadata:
+      labels:
+        fleet: demo-fleet
+    spec:
+      applications:
+      - appType: quadlet
+        envVars: {}
+        inline:
+        - content: |-
+            spec:
+              applications:
+                - name: drone-tracker-nginx
+                  appType: quadlet
+                  inline:
+                    - path: app.container
+                      content: |
+                        [Container]
+                        Image=docker.io/library/nginx:1.25
+                        Exec=nginx -g "daemon off;"
+                        PublishPort=8080:80
+                        Volume=/var/www/web-app:/usr/share/nginx/html:ro,Z
+
+                        [Service]
+                        Restart=on-failure
+                        RestartSec=20
+
+                        [Install]
+                        WantedBy=default.target
+          contentEncoding: plain
+          path: drone-tracker.container
+        name: drone-tracker
+        volumes: []
+      config:
+      - inline:
+        - content: |
+            <?xml version="1.0" encoding="utf-8"?>
+            <service>
+              <short>edge-8080</short>
+              <description>Allow TCP 8080 for Edge workloads</description>
+              <port protocol="tcp" port="8080"/>
+            </service>
+          path: /etc/firewalld/services/edge-8080.xml
+        - content: |-
+            <?xml version="1.0" encoding="utf-8"?>
+            <zone>
+              <short>Public</short>
+              <description>Public zone</description>
+              <service name="edge-8080"/>
+            </zone>
+          path: /etc/firewalld/zones/public.xml
+        name: edge-firewall-config
+      - inline:
+        - content: <h1>Web App</1>
+          path: /var/www/web-app/default.html
+        name: web-content
+      os:
+        image: quay.io/kenosborn/demo-base-image:v1
+      systemd:
+        matchPatterns:
+        - chronyd.service
+status:
+  conditions:
+  - lastTransitionTime: "2026-01-21T16:28:39.403079527Z"
+    message: ""
+    reason: Valid
+    status: "True"
+    type: Valid
+

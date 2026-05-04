@@ -1,0 +1,36 @@
+[customizations.installer.kickstart]
+contents = """
+
+# Unnatended install
+lang en_US.UTF-8
+keyboard us
+timezone Etc/UTC --utc
+text --non-interactive
+rootpw --lock
+reboot
+
+# leave free space on the "redhat" VG for the LVM Storate operator
+zerombr
+clearpart --all --initlabel
+part /boot/efi --fstype=efi --size=200
+part /boot --fstype=xfs --asprimary --size=800
+part pv.01 --grow
+volgroup rhel pv.01
+logvol / --vgname=rhel --fstype=xfs --size=43008 --name=root
+
+# Change this to your 'temporary static IP address' and modify other settings as needed (mask, nameservers)
+network --bootproto=static --device=link --ip=10.20.0.99 --netmask=255.255.255.0 --gateway=10.20.0.1 --nameserver=8.8.8.8,10.20.0.1 --activate --onboot=on
+
+%post --log=/var/log/anaconda/post-install.log --erroronfail
+
+# Local user for console login and SSH (TESTING PURPOSES ONLY)
+useradd -g wheel redhat
+echo "redhat:redhat123" | chpasswd
+mkdir /home/redhat/.ssh
+
+# Set a hostname, just for convenience
+# echo "ushift" > /etc/hostname
+# chmod 644 /etc/hostname
+
+%end
+"""

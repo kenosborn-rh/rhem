@@ -1,0 +1,22 @@
+FROM registry.redhat.io/rhel9-eus/rhel-9.6-bootc:9.6
+RUN dnf --enablerepo ansible-automation-platform-2.5-for-rhel-9-x86_64-rpms -y install flightctl-agent-0.10.0-1.el9em && \
+    dnf -y clean all && \
+    systemctl enable flightctl-agent.service && \
+    systemctl mask bootc-fetch-apply-updates.timer
+
+#RUN dnf config-manager --add-repo https://rpm.flightctl.io/flightctl-epel.repo && \
+#    dnf -y clean all && \
+#    dnf -y install flightctl-agent-0.9.4-1.el9.x86_64 && \
+#    systemctl enable flightctl-agent.service && \
+#    systemctl mask bootc-fetch-apply-updates.timer
+
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm && \
+    dnf -y install podman-compose && \
+    dnf -y clean all && \
+    systemctl enable podman.service
+
+# Set root password - DEMO PURPOSES ONLY
+RUN echo "root:!Greaton399" | chpasswd
+
+ADD config.yaml /etc/flightctl/
+

@@ -1,0 +1,88 @@
+apiVersion: flightctl.io/v1beta1
+kind: Device
+metadata:
+  annotations:
+    device-controller/console: '[]'
+    device-controller/renderedSpecHash: 48029f343e82c953bb5f62b850d4a93f47fe5f747c605d8b4d5c60c57d0e3ee1
+    device-controller/renderedVersion: "125"
+    fleet-controller/renderedTemplateVersion: student1-fleet-3
+    fleet-controller/templateVersion: student1-fleet-3
+  creationTimestamp: "2025-12-10T13:48:13.31964Z"
+  generation: 42
+  labels:
+    alias: test-device-01
+    weather: windy
+  name: l1306fe6doppet09l2n6vsu7ggb4c2jk9h1vb5ocfr1viphhgc20
+  resourceVersion: "784"
+spec:
+  os:
+    image: quay.io/kenosborn/rhem01-drone-image:v1
+  resources:
+  - alertRules:
+    - description: Disk space for / is >5% full for over 1m.
+      duration: 1m
+      percentage: 5
+      severity: Warning
+    - description: Disk space for / is >90% full over 10m.
+      duration: 10m
+      percentage: 90
+      severity: Critical
+    monitorType: Disk
+    path: /
+    samplingInterval: 5s
+status:
+  applications: []
+  applicationsSummary:
+    info: Device has not reported any application workloads yet.
+    status: NoApplications
+  conditions:
+  - lastTransitionTime: "2025-12-10T23:45:56.695231105Z"
+    message: 'Updated to desired renderedVersion: 125'
+    reason: Updated
+    status: "False"
+    type: Updating
+  - lastTransitionTime: "2025-12-10T19:47:24.672422329Z"
+    message: ""
+    reason: Valid
+    status: "True"
+    type: SpecValid
+  config:
+    renderedVersion: "125"
+  integrity:
+    deviceIdentity:
+      status: Unsupported
+    info: TPM not present or not enabled on this device
+    status: Unsupported
+    tpm:
+      status: Unsupported
+  lifecycle:
+    status: Enrolled
+  os:
+    image: quay.io/kenosborn/rhem01-drone-image:v1
+    imageDigest: sha256:d3d6706ddcafc885c2965e219101bc789a523432e1d05eadc63687f9fe0191c3
+  resources:
+    cpu: Healthy
+    disk: Critical
+    memory: Healthy
+  summary:
+    info: Disk utilization has reached a critical level.
+    status: Error
+  systemInfo:
+    agentVersion: v1.0.0-rc2
+    architecture: amd64
+    bootID: 3d1cebc3-2cb9-40eb-acf3-0b46477ba442
+    distroName: Red Hat Enterprise Linux
+    distroVersion: 9.6 (Plow)
+    hostname: localhost.localdomain
+    kernel: 5.14.0-570.26.1.el9_6.x86_64
+    netInterfaceDefault: ens18
+    netIpDefault: 10.20.0.25/24
+    netMacDefault: bc:24:11:b2:b7:3a
+    operatingSystem: linux
+    productName: Standard PC (i440FX + PIIX, 1996)
+    productSerial: ""
+    productUuid: b4b88cfd-1612-4e36-9a93-dd20e885918c
+  updated:
+    info: Device was updated to the latest device spec.
+    status: UpToDate
+

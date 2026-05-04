@@ -1,0 +1,101 @@
+global:
+  baseDomain: rhem-on-rhel-webui-wksp-xt8pt-1-user1.apps.cluster-xt8pt.dynamic.redhatworkshops.io
+  # Certificate generation method - 'none' or 'builtin'
+  # - none: Do not generate certificates. User must provide certs in /etc/flightctl/pki/ or the service will fail to start.
+  # - builtin: Generate required certificates using openssl (default)
+  generateCertificates: builtin
+  auth:
+    type: oidc # oidc, aap, oauth2, or none
+    insecureSkipTlsVerify: true
+    aap:
+      apiUrl:
+      externalApiUrl:
+      oAuthApplicationClientId:
+      oAuthToken:
+    oidc:
+      clientId: flightctl-client
+      clientSecret:
+      enabled: true
+      issuer: https://rhem-on-rhel-oidc-pam-wksp-xt8pt-1-user1.apps.cluster-xt8pt.dynamic.redhatworkshops.io/api/v1/auth
+      externalOidcAuthority:
+      organizationAssignment:
+        type: dynamic
+        claimPath:
+          - organizations
+      usernameClaim:
+        - preferred_username
+      roleAssignment:
+        type: dynamic
+        separator: ":"
+        claimPath:
+          - roles
+    pamOidcIssuer:
+      enabled: true
+      issuer: https://rhem-on-rhel-oidc-pam-wksp-xt8pt-1-user1.apps.cluster-xt8pt.dynamic.redhatworkshops.io/api/v1/auth
+      redirectUris:
+        - https://rhem-on-rhel-webui-wksp-xt8pt-1-user1.apps.cluster-xt8pt.dynamic.redhatworkshops.io/callback
+        - http://localhost:8080/callback
+      clientId: flightctl-client
+      clientSecret:
+      scopes:
+        - openid
+        - profile
+        - email
+        - roles
+      pamService: flightctl
+
+db:
+  external: "disabled"
+  hostname: ""
+  port: 5432
+  name: flightctl
+  user: flightctl_app
+  migrationUser: flightctl_migrator
+  sslmode: ""
+  sslcert: ""
+  sslkey: ""
+  sslrootcert: ""
+
+service:
+  rateLimit:
+    enabled: true
+    requests: 300
+    window: 1m
+    authRequests: 20
+    authWindow: 1h
+    trustedProxies: []
+
+observability:
+  grafana:
+    image:
+    published_port:
+    oauth:
+      enabled:
+      provider_type:
+      auth_url:
+      token_url:
+      api_url:
+      scopes:
+      client_id:
+    local_admin_user:
+    local_admin_password:
+    root_url:
+
+  prometheus:
+    image:
+
+  telemetry_gateway:
+    image:
+    prometheus_port:
+    grpc_port:
+    config:
+      telemetryGateway:
+        export:
+          prometheus:
+        forward:
+          endpoint:
+
+  userinfo_proxy:
+    image:
+    upstream_url:
+    skip_tls_verify:
